@@ -1,0 +1,55 @@
+<div class="main-div">
+    <md-card style="max-width: 500px; ">
+        <md-card-header>
+            <md-card-header-text>
+                <h2 class="md-title" style="text-align: center">ADD GROUP</h2>
+            </md-card-header-text>
+        </md-card-header>
+        <form [formGroup]="addGroupForm" autocomplete="off" novalidate (ngSubmit)="addGroup(addGroupForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center">
+            <md-card-content>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="groupName" placeholder="Name Group">
+                    <mat-error *ngIf="hasError('groupName', 'required')">Name Group is required</mat-error>
+                    <mat-error *ngIf="hasError('groupName', 'pattern')">Name Group is not valid</mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Subject</mat-label>
+                    <mat-select formControlName="Subject">
+                        <mat-option *ngFor="let subject of subjects" [value]="subject.SubjectId">
+                            {{subject.SubjectName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput type="MaxCountOfStudents" type="number"
+                        formControlName="MaxCountOfStudents" placeholder="Max Count of Students">
+                    <mat-error *ngIf="hasError('MaxCountOfStudents', 'required')">Max Count of Students is required
+                    </mat-error>
+                    <mat-error *ngIf="hasError('MaxCountOfStudents', 'pattern')">Max Count of Students is not valid
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="MonthPrice" placeholder="Price" type="number">
+                    <mat-error *ngIf="hasError('MonthPrice', 'required')">Price is required</mat-error>
+                    <mat-error *ngIf="hasError('MonthPrice', 'pattern')">Price is not valid</mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput  [matDatepicker]="startDatePicker" formControlName="StartDate"
+                        placeholder="Date Start">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput [matDatepicker]="picker" formControlName="EndDate"
+                        placeholder="Date End">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </md-card-content>
+            <mat-card-actions class="display-center" style="padding: 10px 0;">
+                <button mat-raised-button [disabled]="!addGroupForm.valid">Submit</button>
+            </mat-card-actions>
+        </form>
+    </md-card>
+</div>
