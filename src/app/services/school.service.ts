@@ -10,7 +10,8 @@ import { AuthorizationService } from './authorization.service';
 })
 export class SchoolService {
 
-  private urlForGetSports: string = 'http://localhost:56833/api/School/GetAll';
+  private urlForGetSchools: string = 'http://localhost:56833/api/School/GetAll';
+  private urlForGetSchool: string = 'http://localhost:56833/api/School/GetSchoolById';
   private urlForCreateGroup: string = 'http://localhost:56833/api/School/CreateSchool';
 
   constructor(private _http: HttpClient,
@@ -22,7 +23,20 @@ export class SchoolService {
         set('Content-Type', 'application/json').
         set('Authorization', tokenData);
 
-    return this._http.get<School[]>(this.urlForGetSports, { headers: headers }).pipe(
+    return this._http.get<School[]>(this.urlForGetSchools, { headers: headers }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getSchoolById(schoolId: number): Observable<School> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),
+      headers = new HttpHeaders().
+        set('Content-Type', 'application/json').
+        set('Authorization', tokenData),
+      params = new HttpParams().
+            set('schoolId', schoolId.toString());   
+
+    return this._http.get<School>(this.urlForGetSchool, { headers: headers, params: params }).pipe(
       catchError(this.handleError)
     );
   }

@@ -37,6 +37,7 @@ import { AddGroupComponent } from './add-group/add-group.component';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { SchoolsComponent } from './schools/schools.component';
 import { AddSchoolComponent } from './add-school/add-school.component';
+import { SchoolComponent } from './school/school.component';
 
 @NgModule({
   declarations: [
@@ -52,8 +53,9 @@ import { AddSchoolComponent } from './add-school/add-school.component';
     AddStudentComponent,
     AddSchoolComponent,
     SchoolsComponent,
+    SchoolComponent,
   ],
-  entryComponents: [AddGroupComponent, AddStudentComponent, AddSchoolComponent],
+  entryComponents: [AddGroupComponent, AddStudentComponent, AddSchoolComponent, RegisterUserComponent],
   imports: [
     BrowserModule,
     FormsModule,

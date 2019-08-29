@@ -4,12 +4,14 @@ import { MainComponent } from './main/main.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupComponent } from './group/group.component';
 import { SchoolsComponent } from './schools/schools.component';
+import { SchoolComponent } from './school/school.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'group/:id', component: GroupComponent },
-  { path: 'schools', component: SchoolsComponent }
+  { path: 'schools', component: SchoolsComponent },
+  { path: 'school/:id', component: SchoolComponent },
 ];
 
 @NgModule({

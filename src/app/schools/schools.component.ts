@@ -3,6 +3,7 @@ import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddSchoolComponent } from '../add-school/add-school.component';
+
 @Component({
   selector: 'app-schools',
   templateUrl: './schools.component.html',
