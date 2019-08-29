@@ -2,10 +2,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constants } from '../constants';
 import { GroupService } from '../services/group.service';
-import { SubjectService } from '../services/subject.service';
+import { SportService } from '../services/sport.service';
 import { MatSnackBar, MatSnackBarModule  } from '@angular/material';
 import { Group } from '../models/group';
-import { Subject } from '../models/subject';
+import { Sport } from '../models/sport';
 
 @Component({
   selector: 'app-add-group',
@@ -14,18 +14,18 @@ import { Subject } from '../models/subject';
 })
 export class AddGroupComponent implements OnInit {
   public addGroupForm: FormGroup;  
-  public subjects: Subject[];
+  public sports: Sport[];
   
   private namePattern: string = Constants.DataValidationConstants.NamePattern;
   private MaxCountOfStudents: string = Constants.DataValidationConstants.MaxCountOfStudents;
   private pricePattern: string = Constants.DataValidationConstants.pricePattern;
 
   constructor(private groupService: GroupService,
-              private subjectService: SubjectService,
+              private sportService: SportService,
               private snackBar: MatSnackBar ) { }
 
   ngOnInit() {
-    this.getSubjects();
+    this.getSports();
     this.initFormGroup();
   }
 
@@ -38,7 +38,7 @@ export class AddGroupComponent implements OnInit {
       StartDate: addGroupForm.StartDate,
       EndDate: addGroupForm.EndDate,
       Students: null,
-      SubjectId: addGroupForm.Subject,
+      SubjectId: addGroupForm.Sport,
       SubjectName: null
     };
      this.groupService.createGroup(group).subscribe(res => {
@@ -59,14 +59,14 @@ export class AddGroupComponent implements OnInit {
                                       Validators.pattern(this.namePattern)]),
       StartDate: new FormControl(new Date(), [Validators.required]),
       EndDate: new FormControl(new Date(), [Validators.required]),
-      Subject: new FormControl(0, [Validators.required]),
+      Sport: new FormControl(0, [Validators.required]),
       MonthPrice: new FormControl(0, [Validators.required, Validators.min(1)])
     });
   };
 
-  private getSubjects() {
-    this.subjectService.getSubjects().subscribe(res => {
-      this.subjects = res;
+  private getSports() {
+    this.sportService.getSports().subscribe(res => {
+      this.sports = res;
     });
   };
 }

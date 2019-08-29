@@ -2,28 +2,42 @@ import { Observable, throwError, pipe } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Subject } from '../models/subject';
+import { School } from '../models/school';
 import { AuthorizationService } from './authorization.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectService {
-  private urlForGetSubjects: string = 'http://localhost:56137/api/Subject/GetSubjects';
+export class SchoolService {
+
+  private urlForGetSports: string = 'http://localhost:56833/api/School/GetAll';
+  private urlForCreateGroup: string = 'http://localhost:56833/api/School/CreateSchool';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService) { }
 
-  getSubjects(): Observable<Subject[]> {
+  getSchools(): Observable<School[]> {
     let tokenData = 'Bearer ' + this.authService.getToken(),
       headers = new HttpHeaders().
         set('Content-Type', 'application/json').
         set('Authorization', tokenData);
 
-    return this._http.get<Subject[]>(this.urlForGetSubjects, { headers: headers }).pipe(
+    return this._http.get<School[]>(this.urlForGetSports, { headers: headers }).pipe(
       catchError(this.handleError)
     );
   }
+
+  createSchool(school: School): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+       content = school;
+    
+    return this._http.post(this.urlForCreateGroup, content, { headers: headers }).pipe(
+        catchError(this.handleError)
+    );
+}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

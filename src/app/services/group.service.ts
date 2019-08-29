@@ -9,9 +9,9 @@ import { AuthorizationService } from './authorization.service';
   providedIn: 'root'
 })
 export class GroupService {
-  private urlForGetGroups: string = 'http://localhost:56137/api/Group/GetAllGroups';
-  private urlForGetGroup: string = 'http://localhost:56137/api/Group/GetGroupById';
-  private urlForCreateGroup: string = 'http://localhost:56137/api/Group/CreateGroup';
+  private urlForGetGroups: string = 'http://localhost:56833/api/Group/GetAllGroups';
+  private urlForGetGroup: string = 'http://localhost:56833/api/Group/GetGroupById';
+  private urlForCreateGroup: string = 'http://localhost:56833/api/Group/CreateGroup';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService) { }

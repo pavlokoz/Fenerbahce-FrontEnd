@@ -1,7 +1,7 @@
 import { Role } from 'src/app/models/role';
 
 export class Constants {
-    static CurrentBackEndHost: string = 'https://localhost:44317/';
+    static CurrentBackEndHost: string = 'http://localhost:56833/';
     
     //Constants for AuthorizationService
     static AuthorizationServiceConstants = class {
@@ -33,12 +33,17 @@ export class Constants {
             },
             {
                 RoleId: 2,
-                RoleDescription: 'Teacher' 
+                RoleDescription: 'Accountant' 
             },
             {
                 RoleId: 3,
-                RoleDescription: 'Accountant' 
+                RoleDescription: 'Instructor' 
+            },
+            {
+                RoleId: 4,
+                RoleDescription: 'Parent' 
             }
+
          ];
          static GrantType: string = 'grant_type=password';
          static Email: string = 'Email=';

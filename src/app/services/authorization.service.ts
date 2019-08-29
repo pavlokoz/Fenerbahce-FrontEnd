@@ -12,23 +12,10 @@ import { Constants } from '../constants';
 
 export class AuthorizationService {
 
-    private urlForRegistration: string = 'http://localhost:56137/api/Account/Register';
-    private urlForRegisterUser: string = 'http://localhost:56137/api/Account/RegisterOfUser';
-    private urlForLogin: string = 'http://localhost:56137/Token';
-    private urlForCheckRegisteredUsers: string = 'http://localhost:56137/api/Account/HasRegisteredUsers';
-    private token: string;
+    private urlForRegisterUser: string = 'http://localhost:56833/api/Account/RegisterOfUser';
+    private urlForLogin: string = 'http://localhost:56833/Token';
 
     constructor(private _http: HttpClient) {
-        this.token = this.getToken();
-    }
-
-    register(user: User): Observable<any> {
-        var headers = new HttpHeaders();
-        var content = user;
-        headers.append('Content-Type', 'application/json');
-        return this._http.post(this.urlForRegistration, content, { headers: headers }).pipe(
-            catchError(this.handleError)
-        );
     }
 
     registerUser(user: User): Observable<any> {
@@ -58,14 +45,6 @@ export class AuthorizationService {
         localStorage.setItem("user", btoa(JSON.stringify(tokenData)));
     }
 
-    hasRegisteredUsers(): Observable<boolean> {
-        var headers = new HttpHeaders();
-        headers.append('Content-Type', 'application/json');
-        return this._http.get<boolean>(this.urlForCheckRegisteredUsers, { headers: headers }).pipe(
-            catchError(this.handleError)
-        );
-    }
-
     getToken(): string {
         if (localStorage.getItem("user")) {
             let user = JSON.parse(atob(localStorage.getItem("user")));
@@ -80,7 +59,6 @@ export class AuthorizationService {
     }
 
     logout(): void {
-        this.token = null;
         localStorage.removeItem("user");
     }
 

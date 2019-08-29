@@ -6,10 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
-import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthorizationService } from './services/authorization.service';
+import { SportService } from './services/sport.service';
+import { SchoolService } from './services/school.service';
 import { GroupService } from './services/group.service';
 import {
   MatButtonModule,
@@ -28,18 +29,19 @@ import {
 }
   from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RegisterUserComponent } from './register.user/register.user.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupComponent } from './group/group.component';
 import { AddGroupComponent } from './add-group/add-group.component';
 import { AddStudentComponent } from './add-student/add-student.component';
+import { SchoolsComponent } from './schools/schools.component';
+import { AddSchoolComponent } from './add-school/add-school.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    RegisterComponent,
     LoginComponent,
     HomeComponent,
     RegisterUserComponent,
@@ -47,9 +49,11 @@ import { AddStudentComponent } from './add-student/add-student.component';
     GroupsComponent,
     GroupComponent,
     AddGroupComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    AddSchoolComponent,
+    SchoolsComponent,
   ],
-  entryComponents: [AddGroupComponent, AddStudentComponent],
+  entryComponents: [AddGroupComponent, AddStudentComponent, AddSchoolComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -75,6 +79,7 @@ import { AddStudentComponent } from './add-student/add-student.component';
   exports: [
     AddStudentComponent,
     AddGroupComponent,
+    AddSchoolComponent,
     FormsModule,
     CommonModule,
     MatButtonModule,
@@ -95,7 +100,9 @@ import { AddStudentComponent } from './add-student/add-student.component';
   ],
   providers: [
     AuthorizationService,
-    GroupService
+    GroupService,
+    SportService,
+    SchoolService
   ],
   bootstrap: [AppComponent],
   schemas: [

@@ -2,30 +2,27 @@ import { Observable, throwError, pipe } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Student } from '../models/student';
+import { Sport } from '../models/sport';
 import { AuthorizationService } from './authorization.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService {
-  private urlForCreateStudent: string = 'http://localhost:56833/api/Student/CreateStudent';
+export class SportService {
+  private urlForGetSports: string = 'http://localhost:56833/api/sport/GetAll';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService) { }
 
-    createStudent(student: Student, groupId: number): Observable<any> {
-      let tokenData = 'Bearer ' + this.authService.getToken(),        
-          headers = new HttpHeaders().
-                      set('Content-Type', 'application/json').
-                      set('Authorization', tokenData),        
-         content = student,
-         params = new HttpParams().
-                      set('groupId', groupId.toString());
-      
-      return this._http.post(this.urlForCreateStudent, content, { headers: headers, params: params }).pipe(
-          catchError(this.handleError)
-      );
+  getSports(): Observable<Sport[]> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),
+      headers = new HttpHeaders().
+        set('Content-Type', 'application/json').
+        set('Authorization', tokenData);
+
+    return this._http.get<Sport[]>(this.urlForGetSports, { headers: headers }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

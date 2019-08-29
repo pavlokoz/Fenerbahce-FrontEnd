@@ -9,21 +9,13 @@ import { AuthorizationService } from '../services/authorization.service';
 export class MainComponent implements OnInit {
 
   isUserLogin: boolean;
-  hasRegisteredUsers: boolean;
-
+  
   constructor(
     private authService: AuthorizationService
   ) { }
 
   ngOnInit() {
     this.isUserLogin = this.authService.isLoginUser();
-    this.authService.hasRegisteredUsers().subscribe(response => {
-        this.hasRegisteredUsers = response;
-    })
-  }
-
-  registerCallback() {
-    this.hasRegisteredUsers = true;
   }
 
   loginCallback() {

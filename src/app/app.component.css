@@ -8,3 +8,7 @@
     vertical-align: baseline;
     background: transparent;
 }
+
+.main {
+    width: calc(100% - 50px);
+}
