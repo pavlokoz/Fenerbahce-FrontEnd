@@ -2,45 +2,44 @@ import { Observable, throwError, pipe } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Student } from '../models/student';
+import { Instructor } from '../models/instructor';
+import { GroupInstructor } from '../models/group-instructor';
 import { AuthorizationService } from './authorization.service';
+import { Group } from '../models/group';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService {
-  private urlForCreateStudent: string = 'http://localhost:56833/api/Student/CreateStudent';
-  private urlForGetStudent: string = 'http://localhost:56833/api/Student/GetStudent';
+export class InstructorService {
+
+  private urlForGetInstructors: string = 'http://localhost:56833/api/Instructor/GetInstructors';
+  private urlForAddInstructor: string = 'http://localhost:56833/api/Instructor/AddInstructor';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService) { }
 
-    createStudent(student: Student, groupId: number): Observable<any> {
-      let tokenData = 'Bearer ' + this.authService.getToken(),        
-          headers = new HttpHeaders().
-                      set('Content-Type', 'application/json').
-                      set('Authorization', tokenData),        
-         content = student,
-         params = new HttpParams().
-                      set('groupId', groupId.toString());
-      
-      return this._http.post(this.urlForCreateStudent, content, { headers: headers, params: params }).pipe(
-          catchError(this.handleError)
-      );
-  }
-
-  getStudent(studentId: number): Observable<Student> {
+  getInstructors(): Observable<Instructor[]> {
     let tokenData = 'Bearer ' + this.authService.getToken(),
       headers = new HttpHeaders().
         set('Content-Type', 'application/json').
-        set('Authorization', tokenData),
-      params = new HttpParams().
-            set('studentId', studentId.toString());   
+        set('Authorization', tokenData);
 
-    return this._http.get<Student>(this.urlForGetStudent, { headers: headers, params: params }).pipe(
+    return this._http.get<Instructor[]>(this.urlForGetInstructors, { headers: headers }).pipe(
       catchError(this.handleError)
     );
-  };
+  }
+
+  addInstructor(groupInstructor: GroupInstructor): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+       content = groupInstructor;
+    
+    return this._http.post(this.urlForAddInstructor, content, { headers: headers }).pipe(
+        catchError(this.handleError)
+    );
+}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

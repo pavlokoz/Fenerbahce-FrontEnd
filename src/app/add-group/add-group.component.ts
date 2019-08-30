@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GroupService } from '../services/group.service';
 import { SportService } from '../services/sport.service';
 import { SchoolService } from '../services/school.service';
-import { MatSnackBar, MatSnackBarModule  } from '@angular/material';
+import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { Group } from '../models/group';
 import { Sport } from '../models/sport';
 import { School } from '../models/school';
@@ -14,14 +14,15 @@ import { School } from '../models/school';
   styleUrls: ['./add-group.component.css']
 })
 export class AddGroupComponent implements OnInit {
-  public addGroupForm: FormGroup;  
+  public addGroupForm: FormGroup;
   public sports: Sport[];
   public schools: School[];
-  
+
   constructor(private groupService: GroupService,
-              private sportService: SportService,
-              private schoolService: SchoolService,
-              private snackBar: MatSnackBar ) { }
+    private sportService: SportService,
+    private schoolService: SchoolService,
+    private snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<AddGroupComponent>) { }
 
   ngOnInit() {
     this.getSports();
@@ -36,17 +37,20 @@ export class AddGroupComponent implements OnInit {
       SchoolId: addGroupForm.schoolId,
       SchoolName: null,
       SportId: addGroupForm.sportId,
-      SportName: null
+      SportName: null,
+      Students: null,
+      Insturctors: null
     };
 
     this.groupService.createGroup(group).subscribe(res => {
-       this.snackBar.open("Group is registered!", "Got it", {
-         duration: 2000
-       });
-     });
+      this.dialogRef.close();
+      this.snackBar.open("Group is registered!", "Got it", {
+        duration: 2000
+      });
+    });
   };
 
-  hasError (controlName: string, errorName: string) {
+  hasError(controlName: string, errorName: string) {
     return this.addGroupForm.controls[controlName].hasError(errorName);
   };
 

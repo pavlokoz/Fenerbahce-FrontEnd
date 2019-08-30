@@ -12,6 +12,7 @@ import { AuthorizationService } from './services/authorization.service';
 import { SportService } from './services/sport.service';
 import { SchoolService } from './services/school.service';
 import { GroupService } from './services/group.service';
+import { InstructorService } from './services/instructor.service';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -38,6 +39,9 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { SchoolsComponent } from './schools/schools.component';
 import { AddSchoolComponent } from './add-school/add-school.component';
 import { SchoolComponent } from './school/school.component';
+import { AddInstructorComponent } from './add-instructor/add-instructor.component';
+import { StudentService } from './services/student.service';
+import { StudentComponent } from './student/student.component';
 
 @NgModule({
   declarations: [
@@ -51,11 +55,19 @@ import { SchoolComponent } from './school/school.component';
     GroupComponent,
     AddGroupComponent,
     AddStudentComponent,
+    AddInstructorComponent,
     AddSchoolComponent,
     SchoolsComponent,
     SchoolComponent,
+    StudentComponent,
   ],
-  entryComponents: [AddGroupComponent, AddStudentComponent, AddSchoolComponent, RegisterUserComponent],
+  entryComponents: [
+    AddGroupComponent, 
+    AddStudentComponent, 
+    AddSchoolComponent, 
+    RegisterUserComponent, 
+    AddInstructorComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -82,6 +94,7 @@ import { SchoolComponent } from './school/school.component';
     AddStudentComponent,
     AddGroupComponent,
     AddSchoolComponent,
+    AddInstructorComponent,
     FormsModule,
     CommonModule,
     MatButtonModule,
@@ -104,7 +117,9 @@ import { SchoolComponent } from './school/school.component';
     AuthorizationService,
     GroupService,
     SportService,
-    SchoolService
+    SchoolService,
+    InstructorService,
+    StudentService
   ],
   bootstrap: [AppComponent],
   schemas: [

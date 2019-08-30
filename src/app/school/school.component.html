@@ -5,7 +5,7 @@
     <table mat-table [dataSource]="school.Groups" class="mat-elevation-z8">
         <ng-container matColumnDef="GroupName">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element">{{element.GroupName}}</td>
+            <td mat-cell *matCellDef="let element"><a routerLink="/group/{{element.GroupId}}"> {{element.GroupName}}</a></td>
         </ng-container>
 
         <ng-container matColumnDef="SportName">

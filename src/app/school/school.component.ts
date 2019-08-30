@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AddSchoolComponent } from '../add-school/add-school.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

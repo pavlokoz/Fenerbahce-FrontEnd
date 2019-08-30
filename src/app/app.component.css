@@ -12,3 +12,7 @@
 .main {
     width: calc(100% - 50px);
 }
+
+.mat-tab-labels {
+    justify-content: center;
+}

@@ -12,8 +12,8 @@ import { MatSnackBar, MatDialogRef  } from '@angular/material';
 export class AddSchoolComponent implements OnInit {
   public schoolForm: FormGroup;  
 
-  constructor(public schoolService: SchoolService,
-    public snackBar: MatSnackBar,
+  constructor(private schoolService: SchoolService,
+    private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddSchoolComponent>) { }
 
   ngOnInit() {
@@ -23,7 +23,8 @@ export class AddSchoolComponent implements OnInit {
   create(schoolFormValues) {
     let school: School = {
       SchoolId: 0,
-      SchoolName: schoolFormValues.schoolName
+      SchoolName: schoolFormValues.schoolName,
+      Groups: null
     };
 
     this.schoolService.createSchool(school).subscribe(res => {

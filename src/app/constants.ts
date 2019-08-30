@@ -1,4 +1,5 @@
 import { Role } from 'src/app/models/role';
+import { SalaryType } from './models/salary-type';
 
 export class Constants {
     static CurrentBackEndHost: string = 'http://localhost:56833/';
@@ -24,6 +25,19 @@ export class Constants {
         
         static pricePattern: string;
     }    
+
+    static InstuctorConstants = class {
+        static SalatyTypes: SalaryType[] = [
+            {
+                TypeCode: 'M',
+                TypeDescription: 'Monthly'
+            },
+            {
+                TypeCode: 'L',
+                TypeDescription: 'Per Lesson'
+            }
+         ];
+    }
 
     static RegistrationConstants = class {
         static UserRoles: Role[] = [

@@ -4,6 +4,7 @@ import { Group } from '../models/group';
 import { GroupService } from '../services/group.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddStudentComponent } from '../add-student/add-student.component';
+import { AddInstructorComponent } from '../add-instructor/add-instructor.component';
 
 @Component({
   selector: 'app-group',
@@ -14,7 +15,7 @@ export class GroupComponent implements OnInit {
 
   group: Group;
 
-  displayedColumnsGroup = ['FirstName', 'LastName', 'DateOfBirth', 'Email', 'PhoneNumber'];
+  displayedColumnsGroup = ['FirstName', 'LastName', 'DateOfBirth'];
   
   constructor(
     private route: ActivatedRoute,
@@ -24,14 +25,20 @@ export class GroupComponent implements OnInit {
     ModalStudent(): void {
       const dialogRef = this.dialog.open(AddStudentComponent, {
         width: '540px',
-        height: '500px',
+        height: '450px',
         data: {
           GroupId: this.group.GroupId
         }
       });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+    }
+
+    ModalInstructor(): void {
+      const dialogRef = this.dialog.open(AddInstructorComponent, {
+        width: '540px',
+        height: '450px',
+        data: {
+          GroupId: this.group.GroupId
+        }
       });
     }
 

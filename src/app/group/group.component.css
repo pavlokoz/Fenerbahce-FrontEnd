@@ -1,7 +1,16 @@
 table{
     width: 80%;
     margin: 0 auto;
-   }
+}
+
 .title {
     text-align: center
+}
+
+h2 {
+    margin: 0;
+}
+
+::ng-deep .mat-tab-labels{
+    justify-content: center; /* align items in Main Axis */
 }
