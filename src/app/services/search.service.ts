@@ -2,31 +2,34 @@ import { Observable, throwError, pipe } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { Instructor } from '../models/instructor';
-import { GroupInstructor } from '../models/group-instructor';
+import { Parent } from '../models/parent';
+import { StudentParent } from '../models/student-parent';
 import { AuthorizationService } from './authorization.service';
-import { Group } from '../models/group';
 import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InstructorService {
+export class SearchService {
 
-  private urlForGetInstructors: string = 'http://localhost:56833/api/Instructor/GetInstructors';
-  private urlForAddInstructor: string = 'http://localhost:56833/api/Instructor/AddInstructor';
+  private urlForSearchParents: string = 'http://localhost:56833/api/Group/Search';
+  private urlForAddParent: string = 'http://localhost:56833/api/Parent/AddParent';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar) {
+  }
 
-  getInstructors(): Observable<Instructor[]> {
+  searchParent(searchLine: string): Observable<Parent[]> {
     let tokenData = 'Bearer ' + this.authService.getToken(),
       headers = new HttpHeaders().
         set('Content-Type', 'application/json').
-        set('Authorization', tokenData);
+        set('Authorization', tokenData),
+      params = new HttpParams().
+        set('searchCriteria', searchLine).
+        set('roleId', '4');
 
-    return this._http.get<Instructor[]>(this.urlForGetInstructors, { headers: headers }).pipe(
+    return this._http.get<Parent[]>(this.urlForSearchParents, { headers: headers, params: params }).pipe(
       catchError(res => {
         this.snackBar.open("An Error Occured! Please, try again", "Got it", {
           duration: 2000
@@ -36,22 +39,22 @@ export class InstructorService {
     );
   }
 
-  addInstructor(groupInstructor: GroupInstructor): Observable<any> {
-    let tokenData = 'Bearer ' + this.authService.getToken(),        
-        headers = new HttpHeaders().
-                    set('Content-Type', 'application/json').
-                    set('Authorization', tokenData),        
-       content = groupInstructor;
-    
-    return this._http.post(this.urlForAddInstructor, content, { headers: headers }).pipe(
-        catchError(res => {
-          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
-            duration: 2000
-          });
-          return this.handleError(res);
-        })
+  addParent(studentParent: StudentParent) {
+    let tokenData = 'Bearer ' + this.authService.getToken(),
+      headers = new HttpHeaders().
+        set('Content-Type', 'application/json').
+        set('Authorization', tokenData),
+      content = studentParent;
+
+    return this._http.post(this.urlForAddParent, content, { headers: headers }).pipe(
+      catchError(res => {
+        this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+          duration: 2000
+        });
+        return this.handleError(res);
+      })
     );
-}
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Student } from '../models/student';
 import { AuthorizationService } from './authorization.service';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class StudentService {
   private urlForGetStudent: string = 'http://localhost:56833/api/Student/GetStudent';
 
   constructor(private _http: HttpClient,
-    private authService: AuthorizationService) { }
+    private authService: AuthorizationService,
+    private snackBar: MatSnackBar) { }
 
     createStudent(student: Student, groupId: number): Observable<any> {
       let tokenData = 'Bearer ' + this.authService.getToken(),        
@@ -25,7 +27,12 @@ export class StudentService {
                       set('groupId', groupId.toString());
       
       return this._http.post(this.urlForCreateStudent, content, { headers: headers, params: params }).pipe(
-          catchError(this.handleError)
+          catchError(res => {
+            this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+              duration: 2000
+            });
+            return this.handleError(res);
+          })
       );
   }
 
@@ -53,6 +60,7 @@ export class StudentService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
+
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');

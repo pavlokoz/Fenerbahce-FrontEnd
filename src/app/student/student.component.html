@@ -22,4 +22,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsGroup"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsGroup;"></tr>
     </table>
+
+    <div *ngIf="student.Parents.length < 2 && IsAdmin()" style="margin-top:40px;  text-align: right; margin-right: 10%;">
+        <button mat-raised-button (click)="ModalParent()">Add Parent</button>
+    </div>
 </div>

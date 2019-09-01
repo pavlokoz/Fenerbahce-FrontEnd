@@ -1,0 +1,15 @@
+<div class="main-div">
+    <md-card style="max-width: 500px; ">
+        <form class="full-width">
+            <mat-form-field class="full-width">
+                <input type="text" placeholder="Search" matInput [formControl]="searchInput" class="full-width">
+
+                <mat-option *ngFor="let item of searchResult" [value]="item.UserId">
+                    <div class="search-option" (click)="addParent(item.UserId)" value = "item.UserId">
+                        {{ item.FirstName + ' ' + item.LastName }}
+                    </div>
+                </mat-option>
+            </mat-form-field>
+        </form>
+    </md-card>
+</div>

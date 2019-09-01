@@ -16,7 +16,13 @@ export class SidebarComponent implements OnInit {
     private authService: AuthorizationService) { }
 
   ngOnInit() {
-    this.isUserLogin = this.authService.isLoginUser();
+    setInterval(()=>{    
+      this.isUserLogin = this.authService.isLoginUser();
+    }, 500);  
+  }
+
+  IsAdmin() {
+    return this.authService.isAdmin();
   }
 
   openRegisterDialog(): void {

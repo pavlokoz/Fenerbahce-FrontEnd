@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Group } from '../models/group';
 import { AuthorizationService } from './authorization.service';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class GroupService {
   private urlForCreateGroup: string = 'http://localhost:56833/api/Group/CreateGroup';
 
   constructor(private _http: HttpClient,
-    private authService: AuthorizationService) { }
+    private authService: AuthorizationService,
+    private snackBar: MatSnackBar) { }
 
   getGroups(): Observable<Group[]> {
     let tokenData = 'Bearer ' + this.authService.getToken(),
@@ -23,7 +25,12 @@ export class GroupService {
         set('Authorization', tokenData);
 
     return this._http.get<Group[]>(this.urlForGetGroups, { headers: headers }).pipe(
-      catchError(this.handleError)
+      catchError(res => {
+        this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+          duration: 2000
+        });
+        return this.handleError(res);
+      })
     );
   }
 
@@ -36,7 +43,12 @@ export class GroupService {
             set('groupId', groupId.toString());   
 
     return this._http.get<Group>(this.urlForGetGroup, { headers: headers, params: params }).pipe(
-      catchError(this.handleError)
+      catchError(res => {
+        this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+          duration: 2000
+        });
+        return this.handleError(res);
+      })
     );
   }
 
@@ -48,7 +60,12 @@ export class GroupService {
        content = group;
     
     return this._http.post(this.urlForCreateGroup, content, { headers: headers }).pipe(
-        catchError(this.handleError)
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
     );
 }
 

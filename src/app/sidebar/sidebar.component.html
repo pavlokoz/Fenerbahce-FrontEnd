@@ -1,6 +1,6 @@
 <div class="sidebar" *ngIf="isUserLogin;">
     <ul>
-        <li>
+        <li *ngIf="IsAdmin()">
             <a (click)="openRegisterDialog()">
                 <i class="material-icons">
                     supervised_user_circle
@@ -17,7 +17,7 @@
         <li>
             <a routerLink="schools">
                 <i class="material-icons">
-                    supervisor_account
+                        store
                 </i>
             </a>
         </li>

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { User } from '../models/user';
 import { Login } from '../models/login';
 import { Constants } from '../constants';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthorizationService {
     private urlForRegisterUser: string = 'http://localhost:56833/api/Account/RegisterOfUser';
     private urlForLogin: string = 'http://localhost:56833/Token';
 
-    constructor(private _http: HttpClient) {
+    constructor(private _http: HttpClient,
+        private snackBar: MatSnackBar) {
     }
 
     registerUser(user: User): Observable<any> {
@@ -26,7 +28,12 @@ export class AuthorizationService {
            content = user;
         
         return this._http.post(this.urlForRegisterUser, content, { headers: headers }).pipe(
-            catchError(this.handleError)
+            catchError(res => {
+                this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+                  duration: 2000
+                });
+                return this.handleError(res);
+              })
         );
     }
 
@@ -37,7 +44,12 @@ export class AuthorizationService {
                       '&password=' + user.Password;
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(this.urlForLogin, content, { headers: headers }).pipe(
-            catchError(this.handleError)
+            catchError(res => {
+                this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+                  duration: 2000
+                });
+                return this.handleError(res);
+              })
         );
     }
 
@@ -56,6 +68,15 @@ export class AuthorizationService {
 
     isLoginUser(): boolean {
         return this.getToken() !== null;
+    }
+
+    isAdmin(): boolean {
+        if (localStorage.getItem("user")) {
+            let user = JSON.parse(atob(localStorage.getItem("user")));
+            return user ? user.roleId == 1 : false;
+        } else {
+            return false;
+        }
     }
 
     logout(): void {

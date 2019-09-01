@@ -42,6 +42,8 @@ import { SchoolComponent } from './school/school.component';
 import { AddInstructorComponent } from './add-instructor/add-instructor.component';
 import { StudentService } from './services/student.service';
 import { StudentComponent } from './student/student.component';
+import { SearchDialogComponent } from './search-dialog/search-dialog.component';
+import { SearchService } from './services/search.service';
 
 @NgModule({
   declarations: [
@@ -60,13 +62,15 @@ import { StudentComponent } from './student/student.component';
     SchoolsComponent,
     SchoolComponent,
     StudentComponent,
+    SearchDialogComponent,
   ],
   entryComponents: [
     AddGroupComponent, 
     AddStudentComponent, 
     AddSchoolComponent, 
     RegisterUserComponent, 
-    AddInstructorComponent
+    AddInstructorComponent,
+    SearchDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -95,6 +99,7 @@ import { StudentComponent } from './student/student.component';
     AddGroupComponent,
     AddSchoolComponent,
     AddInstructorComponent,
+    SearchDialogComponent,
     FormsModule,
     CommonModule,
     MatButtonModule,
@@ -119,7 +124,8 @@ import { StudentComponent } from './student/student.component';
     SportService,
     SchoolService,
     InstructorService,
-    StudentService
+    StudentService,
+    SearchService
   ],
   bootstrap: [AppComponent],
   schemas: [

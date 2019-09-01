@@ -13,6 +13,6 @@
     </table>
 </div>
 
-<div style="text-align: right; margin-right: 10%;">
+<div style="text-align: right; margin-right: 10%;" *ngIf="IsAdmin()">
     <button style="text-align: right" mat-raised-button (click)="openDialog()">Add School</button>      
 </div>
