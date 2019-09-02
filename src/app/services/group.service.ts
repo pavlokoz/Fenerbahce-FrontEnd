@@ -5,14 +5,15 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
 import { Group } from '../models/group';
 import { AuthorizationService } from './authorization.service';
 import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
-  private urlForGetGroups: string = 'http://localhost:56833/api/Group/GetAllGroups';
-  private urlForGetGroup: string = 'http://localhost:56833/api/Group/GetGroupById';
-  private urlForCreateGroup: string = 'http://localhost:56833/api/Group/CreateGroup';
+  private urlForGetGroups: string = Constants.CurrentBackEndHost + 'api/Group/GetAllGroups';
+  private urlForGetGroup: string = Constants.CurrentBackEndHost + 'api/Group/GetGroupById';
+  private urlForCreateGroup: string = Constants.CurrentBackEndHost + 'api/Group/CreateGroup';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,

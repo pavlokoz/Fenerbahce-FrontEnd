@@ -6,14 +6,15 @@ import { Parent } from '../models/parent';
 import { StudentParent } from '../models/student-parent';
 import { AuthorizationService } from './authorization.service';
 import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  private urlForSearchParents: string = 'http://localhost:56833/api/Group/Search';
-  private urlForAddParent: string = 'http://localhost:56833/api/Parent/AddParent';
+  private urlForSearchParents: string = Constants.CurrentBackEndHost + 'api/Group/Search';
+  private urlForAddParent: string = Constants.CurrentBackEndHost + 'api/Parent/AddParent';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,

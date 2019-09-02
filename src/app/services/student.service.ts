@@ -5,13 +5,14 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
 import { Student } from '../models/student';
 import { AuthorizationService } from './authorization.service';
 import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  private urlForCreateStudent: string = 'http://localhost:56833/api/Student/CreateStudent';
-  private urlForGetStudent: string = 'http://localhost:56833/api/Student/GetStudent';
+  private urlForCreateStudent: string = Constants.CurrentBackEndHost + 'api/Student/CreateStudent';
+  private urlForGetStudent: string = Constants.CurrentBackEndHost + 'api/Student/GetStudent';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,

@@ -7,14 +7,15 @@ import { GroupInstructor } from '../models/group-instructor';
 import { AuthorizationService } from './authorization.service';
 import { Group } from '../models/group';
 import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InstructorService {
 
-  private urlForGetInstructors: string = 'http://localhost:56833/api/Instructor/GetInstructors';
-  private urlForAddInstructor: string = 'http://localhost:56833/api/Instructor/AddInstructor';
+  private urlForGetInstructors: string = Constants.CurrentBackEndHost + 'api/Instructor/GetInstructors';
+  private urlForAddInstructor: string = Constants.CurrentBackEndHost + 'api/Instructor/AddInstructor';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,

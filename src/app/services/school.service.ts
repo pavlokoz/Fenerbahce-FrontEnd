@@ -5,15 +5,16 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
 import { School } from '../models/school';
 import { AuthorizationService } from './authorization.service';
 import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SchoolService {
 
-  private urlForGetSchools: string = 'http://localhost:56833/api/School/GetAll';
-  private urlForGetSchool: string = 'http://localhost:56833/api/School/GetSchoolById';
-  private urlForCreateGroup: string = 'http://localhost:56833/api/School/CreateSchool';
+  private urlForGetSchools: string = Constants.CurrentBackEndHost + 'api/School/GetAll';
+  private urlForGetSchool: string = Constants.CurrentBackEndHost + 'api/School/GetSchoolById';
+  private urlForCreateGroup: string = Constants.CurrentBackEndHost + 'api/School/CreateSchool';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,

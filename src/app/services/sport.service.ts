@@ -5,12 +5,13 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
 import { Sport } from '../models/sport';
 import { AuthorizationService } from './authorization.service';
 import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SportService {
-  private urlForGetSports: string = 'http://localhost:56833/api/sport/GetAll';
+  private urlForGetSports: string = Constants.CurrentBackEndHost + 'api/sport/GetAll';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,

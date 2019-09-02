@@ -13,8 +13,8 @@ import { MatSnackBar } from '@angular/material';
 
 export class AuthorizationService {
 
-    private urlForRegisterUser: string = 'http://localhost:56833/api/Account/RegisterOfUser';
-    private urlForLogin: string = 'http://localhost:56833/Token';
+    private urlForRegisterUser: string = Constants.AuthorizationServiceConstants.UrlForRegistration;
+    private urlForLogin: string = Constants.AuthorizationServiceConstants.UrlForAuthorization;
 
     constructor(private _http: HttpClient,
         private snackBar: MatSnackBar) {

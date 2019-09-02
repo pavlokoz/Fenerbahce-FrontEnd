@@ -9,7 +9,7 @@ export class Constants {
 
         static UrlForAuthorization: string = Constants.CurrentBackEndHost + 'Token';
 
-        static UrlForRegistration: string = Constants.CurrentBackEndHost + 'api/Account/Register';
+        static UrlForRegistration: string = Constants.CurrentBackEndHost + 'api/Account/RegisterOfUser';
     }
 
     //Constants for data validation
