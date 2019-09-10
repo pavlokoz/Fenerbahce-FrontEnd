@@ -101,6 +101,8 @@ THE SOFTWARE.
 
 @angular/material/table
 
+@angular/material/tabs
+
 @angular/platform-browser
 MIT
 

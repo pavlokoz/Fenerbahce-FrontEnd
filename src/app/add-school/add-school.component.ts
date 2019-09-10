@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
-import { MatSnackBar, MatDialogRef  } from '@angular/material'; 
+import { MatSnackBar, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-add-school',
@@ -10,7 +10,8 @@ import { MatSnackBar, MatDialogRef  } from '@angular/material';
   styleUrls: ['./add-school.component.css']
 })
 export class AddSchoolComponent implements OnInit {
-  public schoolForm: FormGroup;  
+  public schoolForm: FormGroup;
+  formData: FormData;
 
   constructor(private schoolService: SchoolService,
     private snackBar: MatSnackBar,
@@ -21,13 +22,13 @@ export class AddSchoolComponent implements OnInit {
   }
 
   create(schoolFormValues) {
-    let school: School = {
+    /*let school: School = {
       SchoolId: 0,
       SchoolName: schoolFormValues.schoolName,
       Groups: null
-    };
+    };*/
 
-    this.schoolService.createSchool(school).subscribe(res => {
+    this.schoolService.createSchool(schoolFormValues.schoolName, this.formData).subscribe(res => {
       this.dialogRef.close();
       this.snackBar.open("School created!", "Got it", {
         duration: 2000
@@ -42,5 +43,9 @@ export class AddSchoolComponent implements OnInit {
     });
   };
 
-
+  public onFileChanged(event) {
+    let logo = event.target.files[0];
+    this.formData = new FormData();
+    this.formData.append('image', logo, logo.name);
+  };
 }

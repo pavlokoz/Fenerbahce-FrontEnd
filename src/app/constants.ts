@@ -1,4 +1,4 @@
-import { Role } from 'src/app/models/role';
+import { Role } from './models/role';
 import { SalaryType } from './models/salary-type';
 
 export class Constants {

@@ -39,7 +39,7 @@ export class AddGroupComponent implements OnInit {
       SportId: addGroupForm.sportId,
       SportName: null,
       Students: null,
-      Insturctors: null
+      Instructors: null
     };
 
     this.groupService.createGroup(group).subscribe(res => {

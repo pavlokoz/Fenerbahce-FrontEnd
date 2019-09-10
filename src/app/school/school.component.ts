@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class SchoolComponent implements OnInit {
 
   school: School;
+  schoolLogo: any;
   displayedColumnsGroup = ['GroupName', 'SportName'];
 
   constructor(private schoolService: SchoolService,
@@ -21,5 +22,19 @@ export class SchoolComponent implements OnInit {
     this.schoolService.getSchoolById(schoolId).subscribe(response => {
       this.school = response;
     });
+    this.schoolService.getSchoolLogoById(schoolId).subscribe(response => {
+      this.createImageFromBlob(response);
+    });
+  }
+
+  private createImageFromBlob(image: Blob): any {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.schoolLogo = reader.result;
+    }); 
+
+    if (image && image.size > 0) {
+       reader.readAsDataURL(image);
+    }
   }
 }

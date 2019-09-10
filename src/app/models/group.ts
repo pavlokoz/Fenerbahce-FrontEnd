@@ -9,5 +9,5 @@ export interface Group {
     SportId: number;
     SportName: string;
     Students: Student[];
-    Insturctors: Instructor[];
+    Instructors: Instructor[];
 }

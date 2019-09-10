@@ -11,9 +11,9 @@
                 <mat-form-field class="full-width">
                     <input matInput formControlName="schoolName" placeholder="Name">
                 </mat-form-field>
-                <mat-form-field class="full-width">
-                    <input matInput formControlName="logo" placeholder="Logo">
-                </mat-form-field>
+                <div class="full-width">
+                    <input #logoImage formControlName="logo" type="file" placeholder="Logo" (change)="onFileChanged($event)">
+                </div>
             </md-card-content>
             <mat-card-actions class="display-center" style="padding: 10px 0;">
                 <button mat-raised-button [disabled]="!schoolForm.valid">Create</button>

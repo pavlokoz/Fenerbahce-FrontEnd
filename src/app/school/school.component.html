@@ -1,11 +1,15 @@
 <div *ngIf="school" style="margin-left: 50px;">
+    <div *ngIf="schoolLogo" style="display: flex;justify-content: center;">
+        <img [src]="schoolLogo">
+    </div>
     <div [ngClass]="{title:true}">
         <h2>{{school.SchoolName}}</h2>
     </div>
     <table mat-table [dataSource]="school.Groups" class="mat-elevation-z8">
         <ng-container matColumnDef="GroupName">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"><a routerLink="/group/{{element.GroupId}}"> {{element.GroupName}}</a></td>
+            <td mat-cell *matCellDef="let element"><a routerLink="/group/{{element.GroupId}}"> {{element.GroupName}}</a>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="SportName">
