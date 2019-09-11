@@ -14,6 +14,7 @@ export class GroupService {
   private urlForGetGroups: string = Constants.CurrentBackEndHost + 'api/Group/GetAllGroups';
   private urlForGetGroup: string = Constants.CurrentBackEndHost + 'api/Group/GetGroupById';
   private urlForCreateGroup: string = Constants.CurrentBackEndHost + 'api/Group/CreateGroup';
+  private urlForUpdateGroup: string = Constants.CurrentBackEndHost + 'api/Group/UpdateGroup';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,
@@ -68,7 +69,24 @@ export class GroupService {
           return this.handleError(res);
         })
     );
-}
+  }
+
+  updateGroup(group: Group): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+       content = group;
+    
+    return this._http.put(this.urlForUpdateGroup, content, { headers: headers }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

@@ -1,0 +1,37 @@
+<div *ngIf="schools && sports" class="main-div">
+        <md-card style="max-width: 500px; ">
+            <md-card-header>
+                <md-card-header-text>
+                    <h2 class="md-title" style="text-align: center">EDIT GROUP</h2>
+                </md-card-header-text>
+            </md-card-header>
+            <form [formGroup]="editGroupForm" autocomplete="off" novalidate (ngSubmit)="saveGroup(editGroupForm.value)"
+                fxLayout="column wrap" fxLayoutAlign="center center">
+                <md-card-content>
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="groupName" placeholder="Name">
+                        <mat-error *ngIf="hasError('groupName', 'required')">Name is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Sport</mat-label>
+                        <mat-select formControlName="sportId">
+                            <mat-option *ngFor="let sport of sports" [value]="sport.SportId">
+                                {{sport.SportName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>School</mat-label>
+                        <mat-select formControlName="schoolId">
+                            <mat-option *ngFor="let school of schools" [value]="school.SchoolId">
+                                {{school.SchoolName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </md-card-content>
+                <mat-card-actions class="display-center" style="padding: 10px 0;">
+                    <button mat-raised-button [disabled]="!editGroupForm.valid || !editGroupForm.dirty">Submit</button>
+                </mat-card-actions>
+            </form>
+        </md-card>
+    </div>

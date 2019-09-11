@@ -4,6 +4,10 @@
         <h3>{{group.SportName}}</h3>
         <h3>{{group.SchoolName}}</h3>
     </div>
+    <div class="title">
+            <button mat-raised-button (click)="editGroup()" style="margin-right: 10px;">Edit</button>
+            <button mat-raised-button>Delete</button>
+        </div>
     <mat-tab-group dynamicHeight>
         <mat-tab label="Students">
             <div class="example-small-box mat-elevation-z4">

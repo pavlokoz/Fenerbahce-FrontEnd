@@ -15,6 +15,7 @@ export class SchoolService {
   private urlForGetSchools: string = Constants.CurrentBackEndHost + 'api/School/GetAll';
   private urlForGetSchool: string = Constants.CurrentBackEndHost + 'api/School/GetSchoolById';
   private urlForCreateGroup: string = Constants.CurrentBackEndHost + 'api/School/CreateSchool';
+  private urlForDeleteGroup: string = Constants.CurrentBackEndHost + 'api/School/DeleteSchool';
   private urlForGetSchoolLogo: string = Constants.CurrentBackEndHost + 'api/School/GetSchoolImage';
 
   constructor(private _http: HttpClient,
@@ -88,7 +89,25 @@ export class SchoolService {
           return this.handleError(res);
         })
     );
-}
+  }
+
+  deleteSchool(schoolId: number): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+        params = new HttpParams().
+                    set('schoolId', schoolId.toString());
+    
+    return this._http.delete(this.urlForDeleteGroup, { headers: headers, params: params }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

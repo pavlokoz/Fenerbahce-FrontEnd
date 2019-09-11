@@ -5,6 +5,10 @@
     <div [ngClass]="{title:true}">
         <h2>{{school.SchoolName}}</h2>
     </div>
+    <div class="title">
+        <button mat-raised-button style="margin-right: 10px;">Edit</button>
+        <button mat-raised-button (click)="deleteSchool()">Delete</button>
+    </div>
     <table mat-table [dataSource]="school.Groups" class="mat-elevation-z8">
         <ng-container matColumnDef="GroupName">
             <th mat-header-cell *matHeaderCellDef> Name </th>

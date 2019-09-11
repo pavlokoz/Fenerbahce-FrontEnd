@@ -44,6 +44,7 @@ import { StudentService } from './services/student.service';
 import { StudentComponent } from './student/student.component';
 import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 import { SearchService } from './services/search.service';
+import { EditGroupComponent } from './edit-group/edit-group.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SearchService } from './services/search.service';
     SchoolComponent,
     StudentComponent,
     SearchDialogComponent,
+    EditGroupComponent,
   ],
   entryComponents: [
     AddGroupComponent, 
@@ -70,7 +72,8 @@ import { SearchService } from './services/search.service';
     AddSchoolComponent, 
     RegisterUserComponent, 
     AddInstructorComponent,
-    SearchDialogComponent
+    SearchDialogComponent,
+    EditGroupComponent
   ],
   imports: [
     BrowserModule,

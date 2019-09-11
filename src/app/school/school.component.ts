@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-school',
@@ -15,7 +15,8 @@ export class SchoolComponent implements OnInit {
   displayedColumnsGroup = ['GroupName', 'SportName'];
 
   constructor(private schoolService: SchoolService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     let schoolId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
@@ -27,6 +28,12 @@ export class SchoolComponent implements OnInit {
     });
   }
 
+  deleteSchool(): void {
+    this.schoolService.deleteSchool(this.school.SchoolId).subscribe(response => {
+      this.router.navigate(['/schools']);
+    });
+  };
+
   private createImageFromBlob(image: Blob): any {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
@@ -36,5 +43,5 @@ export class SchoolComponent implements OnInit {
     if (image && image.size > 0) {
        reader.readAsDataURL(image);
     }
-  }
+  }  
 }

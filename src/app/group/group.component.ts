@@ -5,6 +5,7 @@ import { GroupService } from '../services/group.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddStudentComponent } from '../add-student/add-student.component';
 import { AddInstructorComponent } from '../add-instructor/add-instructor.component';
+import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { AuthorizationService } from '../services/authorization.service';
 
 @Component({
@@ -34,6 +35,20 @@ export class GroupComponent implements OnInit {
         height: '450px',
         data: {
           GroupId: this.group.GroupId
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        this.loadData();
+      });
+    }
+
+    editGroup(): void {
+      const dialogRef = this.dialog.open(EditGroupComponent, {
+        width: '540px',
+        height: '370px',
+        data: {
+          Group: this.group
         }
       });
 
