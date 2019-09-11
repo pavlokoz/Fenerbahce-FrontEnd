@@ -1,0 +1,23 @@
+<div class="main-div">
+        <md-card style="max-width: 500px; ">
+            <md-card-header>
+                <md-card-header-text>
+                    <h2 class="md-title" style="text-align: center">EDIT SCHOOL</h2>
+                </md-card-header-text>
+            </md-card-header>
+            <form [formGroup]="schoolForm" autocomplete="off" novalidate (ngSubmit)="create(schoolForm.value)"
+                fxLayout="column wrap" fxLayoutAlign="center center">
+                <md-card-content>
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="schoolName" placeholder="Name">
+                    </mat-form-field>
+                    <div class="full-width">
+                        <input #logoImage formControlName="logo" type="file" placeholder="Logo" (change)="onFileChanged($event)">
+                    </div>
+                </md-card-content>
+                <mat-card-actions class="display-center" style="padding: 10px 0;">
+                    <button mat-raised-button [disabled]="!schoolForm.valid || !schoolForm.dirty">Submit</button>
+                </mat-card-actions>
+            </form>
+        </md-card>
+    </div>
