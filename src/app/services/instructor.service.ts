@@ -16,6 +16,7 @@ export class InstructorService {
 
   private urlForGetInstructors: string = Constants.CurrentBackEndHost + 'api/Instructor/GetInstructors';
   private urlForAddInstructor: string = Constants.CurrentBackEndHost + 'api/Instructor/AddInstructor';
+  private urlForDeleteInstructor: string = Constants.CurrentBackEndHost + 'api/Instructor/DeleteInstructor';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,
@@ -52,6 +53,24 @@ export class InstructorService {
           return this.handleError(res);
         })
     );
+}
+
+deleteInstructor(instructorId: number): Observable<any> {
+  let tokenData = 'Bearer ' + this.authService.getToken(),        
+      headers = new HttpHeaders().
+                  set('Content-Type', 'application/json').
+                  set('Authorization', tokenData),        
+      params = new HttpParams().
+                  set('instructorId', instructorId.toString());
+  
+  return this._http.delete(this.urlForDeleteInstructor, { headers: headers, params: params }).pipe(
+      catchError(res => {
+        this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+          duration: 2000
+        });
+        return this.handleError(res);
+      })
+  );
 }
 
   private handleError(error: HttpErrorResponse) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../models/group';
 import { GroupService } from '../services/group.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -23,6 +23,7 @@ export class GroupComponent implements OnInit {
     private route: ActivatedRoute,
     private groupService: GroupService,
     private authService: AuthorizationService,
+    private router: Router,
     public dialog: MatDialog) { }
 
     IsAdmin() {
@@ -56,6 +57,12 @@ export class GroupComponent implements OnInit {
         this.loadData();
       });
     }
+
+    deleteGroup(): void {
+      this.groupService.deleteGroup(this.group.GroupId).subscribe(response => {
+        this.router.navigate(['/groups']);
+      });
+    };
 
     ModalInstructor(): void {
       const dialogRef = this.dialog.open(AddInstructorComponent, {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Inject, HostListener } from '@angular/core';
 import { StudentService } from '../services/student.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../models/student';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -21,6 +21,7 @@ export class StudentComponent implements OnInit {
   constructor(private studentService: StudentService,
     private authService: AuthorizationService,
     private route: ActivatedRoute,
+    private router: Router,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -44,6 +45,12 @@ export class StudentComponent implements OnInit {
       this.loadData();
     });    
   }
+
+  deleteStudent(): void {
+    this.studentService.deleteStudent(this.student.StudentId).subscribe(response => {
+      this.router.navigate(['/students']);
+    });
+  };
 
   private loadData() {
     let studentId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
