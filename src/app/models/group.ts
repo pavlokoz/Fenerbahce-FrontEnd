@@ -1,5 +1,5 @@
 import { Student } from './student';
-import { Instructor } from './instructor';
+import { GroupInstructor } from './group-instructor';
 
 export interface Group {
     GroupId: number;
@@ -9,5 +9,5 @@ export interface Group {
     SportId: number;
     SportName: string;
     Students: Student[];
-    Instructors: Instructor[];
+    GroupInstructors: GroupInstructor[];
 }

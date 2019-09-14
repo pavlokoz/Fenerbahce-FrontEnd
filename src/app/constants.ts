@@ -28,7 +28,7 @@ export class Constants {
     }    
 
     static InstuctorConstants = class {
-        static SalatyTypes: SalaryType[] = [
+        static SalaryTypes: SalaryType[] = [
             {
                 TypeCode: 'M',
                 TypeDescription: 'Monthly'

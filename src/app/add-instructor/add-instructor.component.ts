@@ -29,7 +29,7 @@ export class AddInstructorComponent implements OnInit {
 
   ngOnInit() {
     this.initFormInstructor();
-    this.salaryTypes = Constants.InstuctorConstants.SalatyTypes;
+    this.salaryTypes = Constants.InstuctorConstants.SalaryTypes;
     this.getInstructors();
     //this.createCallback = new EventEmitter();
   }
@@ -39,7 +39,8 @@ export class AddInstructorComponent implements OnInit {
       InstructorId: addInstructorForm.Instructor,
       GroupId: this.data.GroupId,
       Salary: addInstructorForm.Salary,
-      Type: addInstructorForm.Type
+      Type: addInstructorForm.Type,
+      Instructor: null
     };
 
     this.spinnerService.ShowSpinner('LoadingProcess');

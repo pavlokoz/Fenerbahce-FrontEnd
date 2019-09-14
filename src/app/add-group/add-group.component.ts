@@ -42,7 +42,7 @@ export class AddGroupComponent implements OnInit {
       SportId: addGroupForm.sportId,
       SportName: null,
       Students: null,
-      Instructors: null
+      GroupInstructors: null
     };
 
     this.spinnerService.ShowSpinner('LoadingProcess');

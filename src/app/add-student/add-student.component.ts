@@ -37,7 +37,8 @@ export class AddStudentComponent implements OnInit {
       Patrimonial: addStudentForm.Patrimonial,
       GroupName: null,
       GroupId: this.data.GroupId,
-      Parents: null
+      Parents: null,
+      Payments: null
     };
 
     this.spinnerService.ShowSpinner('LoadingProcess');
