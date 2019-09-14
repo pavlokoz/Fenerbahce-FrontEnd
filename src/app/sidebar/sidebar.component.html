@@ -1,5 +1,12 @@
 <div class="sidebar" *ngIf="isUserLogin;">
     <ul>
+        <li>
+            <a routerLink="/">
+                <i class="material-icons">
+                        home
+                </i>
+            </a>
+        </li>
         <li *ngIf="IsAdmin()">
             <a (click)="openRegisterDialog()">
                 <i class="material-icons">

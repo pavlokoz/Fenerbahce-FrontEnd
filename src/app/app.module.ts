@@ -53,6 +53,9 @@ import { SpinnerService } from './services/spinner.service';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { PaymentService } from './services/payment.service';
 import { EditPaymentComponent } from './edit-payment/edit-payment.component';
+import { NewsComponent } from './news/news.component';
+import { NewsDetailComponent } from './news-detail/news-detail.component';
+import { AddNewsComponent } from './add-news/add-news.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { EditPaymentComponent } from './edit-payment/edit-payment.component';
     SpinnerComponent,
     AddPaymentComponent,
     EditPaymentComponent,
+    NewsComponent,
+    NewsDetailComponent,
+    AddNewsComponent,
   ],
   entryComponents: [
     AddGroupComponent, 

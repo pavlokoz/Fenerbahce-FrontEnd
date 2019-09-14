@@ -29,7 +29,6 @@ export class StudentComponent implements OnInit {
 
   constructor(private studentService: StudentService,
     private authService: AuthorizationService,
-
     private paymentService: PaymentService,
     private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
