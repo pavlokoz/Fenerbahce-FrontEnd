@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Inject, HostListener } from '@angular/core';
 import { StudentService } from '../services/student.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../models/student';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SearchDialogComponent } from '../search-dialog/search-dialog.component';
 import { AuthorizationService } from '../services/authorization.service';
+import { EditStudentComponent } from '../edit-student/edit-student.component';
 import { SpinnerService } from '../services/spinner.service';
 import { AddPaymentComponent } from '../add-payment/add-payment.component';
 import { Constants } from '../constants';
@@ -28,9 +29,11 @@ export class StudentComponent implements OnInit {
 
   constructor(private studentService: StudentService,
     private authService: AuthorizationService,
+
     private paymentService: PaymentService,
     private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
+    private router: Router,
     private route: ActivatedRoute,    
     public dialog: MatDialog) { }
 
@@ -56,6 +59,26 @@ export class StudentComponent implements OnInit {
     });    
   }
 
+  deleteStudent(): void {
+    this.studentService.deleteStudent(this.student.StudentId).subscribe(response => {
+      this.router.navigate(['/group/', this.student.GroupId]);
+    });
+  };
+
+  editStudent(): void {
+    const dialogRef = this.dialog.open(EditStudentComponent, {
+      width: '540px',
+      height: '450px',
+      data: {
+        Student: this.student,
+        GroupId: this.student.GroupId
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+        this.loadData();
+    });
+  }
+
   addPayment(): void {
     const dialogRef = this.dialog.open(AddPaymentComponent, {
       width: '540px',
@@ -77,8 +100,9 @@ export class StudentComponent implements OnInit {
         Payment: payment
       }
     });
+
     dialogRef.afterClosed().subscribe(res => {
-      this.loadData();
+        this.loadData();
     });
   }
 
