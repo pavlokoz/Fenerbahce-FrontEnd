@@ -38,11 +38,12 @@ export class AuthorizationService {
     }
 
     login(user: Login): Observable<any> {
-        var headers = new HttpHeaders();
+        var headers = new HttpHeaders().
+                        set('Content-Type', 'application/x-www-form-urlencoded').
+                        set('Environement', 'Browser');
         var content = Constants.RegistrationConstants.GrantType + 
                       '&username=' + user.UserName + 
                       '&password=' + user.Password;
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(this.urlForLogin, content, { headers: headers }).pipe(
             catchError(res => {
                 this.snackBar.open("An Error Occured! Please, try again", "Got it", {
