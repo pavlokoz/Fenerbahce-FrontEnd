@@ -1,5 +1,5 @@
 <div *ngIf="isUserLogin; else NotAuthUser">
-    <app-home></app-home>
+    <app-news></app-news>
 </div>
 <ng-template #NotAuthUser>
     <app-login (loginEvent)="loginCallback()"></app-login>

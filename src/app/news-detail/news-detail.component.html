@@ -1,0 +1,11 @@
+<div *ngIf="news" style="margin: 0 100px;">
+    <div [ngClass]="{title:true}">
+        <h2>{{news.Title}}</h2>
+    </div>
+    <div *ngIf="newsImage" style="display: flex;justify-content: center;">
+        <img [src]="newsImage">
+    </div>
+    <article>
+        {{news.Info}}
+    </article>
+</div>
