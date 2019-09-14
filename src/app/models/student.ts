@@ -1,4 +1,5 @@
 import { Parent } from './parent';
+import { Payment } from './payment';
 
 export interface Student {
     StudentId: number;
@@ -9,4 +10,5 @@ export interface Student {
     GroupId: number;
     GroupName: string;
     Parents: Parent[];
+    Payments: Payment[];
 }

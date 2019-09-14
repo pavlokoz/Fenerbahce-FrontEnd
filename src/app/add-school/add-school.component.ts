@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-add-school',
@@ -14,6 +15,7 @@ export class AddSchoolComponent implements OnInit {
   formData: FormData;
 
   constructor(private schoolService: SchoolService,
+    private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddSchoolComponent>) { }
 
@@ -22,13 +24,9 @@ export class AddSchoolComponent implements OnInit {
   }
 
   create(schoolFormValues) {
-    /*let school: School = {
-      SchoolId: 0,
-      SchoolName: schoolFormValues.schoolName,
-      Groups: null
-    };*/
-
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.schoolService.createSchool(schoolFormValues.schoolName, this.formData).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("School created!", "Got it", {
         duration: 2000

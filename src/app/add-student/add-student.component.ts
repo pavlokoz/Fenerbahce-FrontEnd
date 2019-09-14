@@ -5,7 +5,7 @@ import { StudentService } from '../services/student.service';
 import { MatSnackBar, MatSnackBarModule, MatDialogRef } from '@angular/material';
 import { Student } from '../models/student';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { EventEmitter } from 'events';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-add-student',
@@ -14,19 +14,18 @@ import { EventEmitter } from 'events';
 })
 
 export class AddStudentComponent implements OnInit {
-  //public createCallback: EventEmitter;
   public addStudentForm: FormGroup;
 
   private namePattern: string = Constants.DataValidationConstants.NamePattern;
 
   constructor(private studentService: StudentService,
+    private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddStudentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.initFormStudent();
-    //this.createCallback = new EventEmitter();
   }
 
   addStudent(addStudentForm) {
@@ -38,10 +37,13 @@ export class AddStudentComponent implements OnInit {
       Patrimonial: addStudentForm.Patrimonial,
       GroupName: null,
       GroupId: this.data.GroupId,
-      Parents: null
+      Parents: null,
+      Payments: null
     };
 
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.studentService.createStudent(student, this.data.GroupId).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("Student are registered!", "Got it", {
         duration: 2000

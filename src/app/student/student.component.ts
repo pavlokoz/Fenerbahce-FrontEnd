@@ -7,6 +7,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { SearchDialogComponent } from '../search-dialog/search-dialog.component';
 import { AuthorizationService } from '../services/authorization.service';
 import { EditStudentComponent } from '../edit-student/edit-student.component';
+import { SpinnerService } from '../services/spinner.service';
+import { AddPaymentComponent } from '../add-payment/add-payment.component';
+import { Constants } from '../constants';
+import { Payment } from '../models/payment';
+import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
+import { PaymentService } from '../services/payment.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-student',
@@ -16,13 +23,18 @@ import { EditStudentComponent } from '../edit-student/edit-student.component';
 export class StudentComponent implements OnInit {
 
   student: Student;
-  displayedColumnsGroup = ['FirstName', 'LastName'];
-  formInput: FormControl = new FormControl();
+  paymentTypes = Constants.PaymentConstants.PaymentTypes;
+  displayedParentColumns = ['FirstName', 'LastName'];
+  displayedPaymentColumns = ['Amount', 'Type', 'Update', 'Delete'];
 
   constructor(private studentService: StudentService,
     private authService: AuthorizationService,
-    private route: ActivatedRoute,
+
+    private paymentService: PaymentService,
+    private spinnerService: SpinnerService,
+    private snackBar: MatSnackBar,
     private router: Router,
+    private route: ActivatedRoute,    
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -62,17 +74,61 @@ export class StudentComponent implements OnInit {
         GroupId: this.student.GroupId
       }
     });
-
     dialogRef.afterClosed().subscribe(res => {
-      this.loadData();
+        this.loadData();
     });
   }
-  
 
+  addPayment(): void {
+    const dialogRef = this.dialog.open(AddPaymentComponent, {
+      width: '540px',
+      height: 'auto',
+      data: {
+        StudentId: this.student.StudentId
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.loadData();
+    });    
+  }
+
+  updatePayment(payment: Payment): void {
+    const dialogRef = this.dialog.open(EditPaymentComponent, {
+      width: '540px',
+      height: 'auto',
+      data: {
+        Payment: payment
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+        this.loadData();
+    });
+  }
+
+  deletePayment(paymentId: number): void { 
+    this.spinnerService.ShowSpinner('LoadingProcess');
+    this.paymentService.deletePayment(paymentId).subscribe(response => {
+      let payments = this.student.Payments;
+      this.student.Payments = payments.filter(item => item.PaymentId != paymentId);
+      this.snackBar.open("Payment is deleted!", "Got it", {
+        duration: 2000
+      });
+      this.spinnerService.HideSpinner('LoadingProcess');
+    });
+  }
+
+  getTypeDescription(typeCode: string): string {
+    let typeModel = this.paymentTypes.find(item => item.TypeCode === typeCode);
+    return typeModel ? typeModel.TypeDescription : '';
+  }
+  
   private loadData() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     let studentId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.studentService.getStudent(studentId).subscribe(response => {
       this.student = response;
+      this.spinnerService.HideSpinner('LoadingProcess');
     });
   }
 }

@@ -47,6 +47,12 @@ import { SearchService } from './services/search.service';
 import { EditGroupComponent } from './edit-group/edit-group.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 import { EditInstructorComponent } from './edit-instructor/edit-instructor.component';
+import { EditSchoolComponent } from './edit-school/edit-school.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './services/spinner.service';
+import { AddPaymentComponent } from './add-payment/add-payment.component';
+import { PaymentService } from './services/payment.service';
+import { EditPaymentComponent } from './edit-payment/edit-payment.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +75,10 @@ import { EditInstructorComponent } from './edit-instructor/edit-instructor.compo
     EditGroupComponent,
     EditStudentComponent,
     EditInstructorComponent,
+    EditSchoolComponent,
+    SpinnerComponent,
+    AddPaymentComponent,
+    EditPaymentComponent,
   ],
   entryComponents: [
     AddGroupComponent, 
@@ -76,10 +86,14 @@ import { EditInstructorComponent } from './edit-instructor/edit-instructor.compo
     AddSchoolComponent, 
     RegisterUserComponent, 
     AddInstructorComponent,
+    AddPaymentComponent,
     SearchDialogComponent,
     EditGroupComponent, 
     EditStudentComponent,
-    EditInstructorComponent
+    EditInstructorComponent,
+    EditGroupComponent,
+    EditSchoolComponent,
+    EditPaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +122,7 @@ import { EditInstructorComponent } from './edit-instructor/edit-instructor.compo
     AddGroupComponent,
     AddSchoolComponent,
     AddInstructorComponent,
-    SearchDialogComponent,
+    SearchDialogComponent,    
     FormsModule,
     CommonModule,
     MatButtonModule,
@@ -134,7 +148,9 @@ import { EditInstructorComponent } from './edit-instructor/edit-instructor.compo
     SchoolService,
     InstructorService,
     StudentService,
-    SearchService
+    SearchService,
+    PaymentService,
+    SpinnerService
   ],
   bootstrap: [AppComponent],
   schemas: [

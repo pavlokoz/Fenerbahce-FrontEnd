@@ -1,5 +1,6 @@
 import { Role } from './models/role';
 import { SalaryType } from './models/salary-type';
+import { PaymentType } from './models/payment-type';
 
 export class Constants {
     static CurrentBackEndHost: string = 'http://localhost:56833/';
@@ -27,7 +28,7 @@ export class Constants {
     }    
 
     static InstuctorConstants = class {
-        static SalatyTypes: SalaryType[] = [
+        static SalaryTypes: SalaryType[] = [
             {
                 TypeCode: 'M',
                 TypeDescription: 'Monthly'
@@ -35,6 +36,23 @@ export class Constants {
             {
                 TypeCode: 'L',
                 TypeDescription: 'Per Lesson'
+            }
+         ];
+    }
+
+    static PaymentConstants = class {
+        static PaymentTypes: PaymentType[] = [
+            {
+                TypeCode: 'M',
+                TypeDescription: 'Monthly payments'
+            },
+            {
+                TypeCode: 'F',
+                TypeDescription: 'Fenerium'
+            },
+            {
+                TypeCode: 'E',
+                TypeDescription: 'Extra'
             }
          ];
     }

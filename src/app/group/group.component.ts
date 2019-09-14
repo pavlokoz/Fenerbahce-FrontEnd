@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../models/group';
 import { GroupService } from '../services/group.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddStudentComponent } from '../add-student/add-student.component';
 import { AddInstructorComponent } from '../add-instructor/add-instructor.component';
 import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { AuthorizationService } from '../services/authorization.service';
 import { InstructorService } from '../services/instructor.service';
 import { EditInstructorComponent } from '../edit-instructor/edit-instructor.component';
+import { SpinnerService } from '../services/spinner.service';
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-group',
@@ -17,51 +19,47 @@ import { EditInstructorComponent } from '../edit-instructor/edit-instructor.comp
 })
 export class GroupComponent implements OnInit {
 
-  group: Group;
+  private salaryTypes = Constants.InstuctorConstants.SalaryTypes;
 
+  group: Group;
   displayedColumnsGroup = ['FirstName', 'LastName', 'DateOfBirth'];
-  displayedInstructorColumns = ['FirstName', 'LastName', 'DateOfBirth', 'Edit', 'Delete'];
-  
+  displayedInstructorColumns = ['FirstName', 'LastName', 'DateOfBirth', 'Salary', 'SalaryType', 'Edit', 'Delete'];
+
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
     private authService: AuthorizationService,
     private instructorService: InstructorService,
     private router: Router,
+    private spinnerService: SpinnerService,
     public dialog: MatDialog) { }
 
-    IsAdmin() {
-      return this.authService.isAdmin();
-    }
+  ngOnInit() {
+    this.loadData();
+  }
 
-    ModalStudent(): void {
-      const dialogRef = this.dialog.open(AddStudentComponent, {
-        width: '540px',
-        height: '450px',
-        data: {
-          GroupId: this.group.GroupId
-        }
-      });
+  IsAdmin() {
+    return this.authService.isAdmin();
+  }
 
-      dialogRef.afterClosed().subscribe(res => {
-        this.loadData();
-      });
-    }
+  getSalaryDescription(salaryCode: string): string {
+    var salaryDefModel = this.salaryTypes.find(x => x.TypeCode == salaryCode);
+    return salaryDefModel ? salaryDefModel.TypeDescription : '';
+  }
 
-    editGroup(): void {
-      const dialogRef = this.dialog.open(EditGroupComponent, {
-        width: '540px',
-        height: '370px',
-        data: {
-          Group: this.group
-        }
-      });
+  ModalStudent(): void {
+    const dialogRef = this.dialog.open(AddStudentComponent, {
+      width: '540px',
+      height: '450px',
+      data: {
+        GroupId: this.group.GroupId
+      }
+    });
 
-      dialogRef.afterClosed().subscribe(res => {
-        this.loadData();
-      });
-    }
-
+    dialogRef.afterClosed().subscribe(res => {
+      this.loadData();
+    });
+  }
     deleteGroup(): void {
       this.groupService.deleteGroup(this.group.GroupId).subscribe(response => {
         this.router.navigate(['/groups']);
@@ -94,20 +92,31 @@ export class GroupComponent implements OnInit {
         data: {
           GroupId: this.group.GroupId
         }
-      });
-  
+      }); 
       dialogRef.afterClosed().subscribe(res => {
         this.loadData();
       });
     }
 
-  ngOnInit() {
-    this.loadData();
+  editGroup(): void {
+    const dialogRef = this.dialog.open(EditGroupComponent, {
+      width: '540px',
+      height: '370px',
+      data: {
+        Group: this.group
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      this.loadData();
+    });
   }
 
   private loadData() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     let groupId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.groupService.getGroupById(groupId).subscribe(response => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.group = response;
     });
   }

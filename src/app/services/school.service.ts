@@ -14,9 +14,10 @@ export class SchoolService {
 
   private urlForGetSchools: string = Constants.CurrentBackEndHost + 'api/School/GetAll';
   private urlForGetSchool: string = Constants.CurrentBackEndHost + 'api/School/GetSchoolById';
-  private urlForCreateGroup: string = Constants.CurrentBackEndHost + 'api/School/CreateSchool';
-  private urlForDeleteGroup: string = Constants.CurrentBackEndHost + 'api/School/DeleteSchool';
+  private urlForCreateSchool: string = Constants.CurrentBackEndHost + 'api/School/CreateSchool';
+  private urlForDeleteSchool: string = Constants.CurrentBackEndHost + 'api/School/DeleteSchool';
   private urlForGetSchoolLogo: string = Constants.CurrentBackEndHost + 'api/School/GetSchoolImage';
+  private urlForUpdateSchool: string = Constants.CurrentBackEndHost + 'api/School/UpdateSchool';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,
@@ -81,7 +82,26 @@ export class SchoolService {
         params = new HttpParams().
                     set('schoolName', schoolName);   
     
-    return this._http.post(this.urlForCreateGroup, content, { headers: headers, params: params }).pipe(
+    return this._http.post(this.urlForCreateSchool, content, { headers: headers, params: params }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
+  }
+
+  updateSchool(schoolName: string, schoolId: number, logo: FormData): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().                   
+                    set('Authorization', tokenData),        
+        content = logo,
+        params = new HttpParams().
+                    set('schoolId', schoolId.toString()).
+                    set('schoolName', schoolName);   
+    
+    return this._http.put(this.urlForUpdateSchool, content, { headers: headers, params: params }).pipe(
         catchError(res => {
           this.snackBar.open("An Error Occured! Please, try again", "Got it", {
             duration: 2000
@@ -99,7 +119,7 @@ export class SchoolService {
         params = new HttpParams().
                     set('schoolId', schoolId.toString());
     
-    return this._http.delete(this.urlForDeleteGroup, { headers: headers, params: params }).pipe(
+    return this._http.delete(this.urlForDeleteSchool, { headers: headers, params: params }).pipe(
         catchError(res => {
           this.snackBar.open("An Error Occured! Please, try again", "Got it", {
             duration: 2000
