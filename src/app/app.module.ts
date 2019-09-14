@@ -46,6 +46,8 @@ import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 import { SearchService } from './services/search.service';
 import { EditGroupComponent } from './edit-group/edit-group.component';
 import { EditSchoolComponent } from './edit-school/edit-school.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './services/spinner.service';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,7 @@ import { EditSchoolComponent } from './edit-school/edit-school.component';
     SearchDialogComponent,
     EditGroupComponent,
     EditSchoolComponent,
+    SpinnerComponent,
   ],
   entryComponents: [
     AddGroupComponent, 
@@ -105,7 +108,7 @@ import { EditSchoolComponent } from './edit-school/edit-school.component';
     AddGroupComponent,
     AddSchoolComponent,
     AddInstructorComponent,
-    SearchDialogComponent,
+    SearchDialogComponent,    
     FormsModule,
     CommonModule,
     MatButtonModule,
@@ -131,7 +134,8 @@ import { EditSchoolComponent } from './edit-school/edit-school.component';
     SchoolService,
     InstructorService,
     StudentService,
-    SearchService
+    SearchService,
+    SpinnerService
   ],
   bootstrap: [AppComponent],
   schemas: [

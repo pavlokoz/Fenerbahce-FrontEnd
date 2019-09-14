@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SearchDialogComponent } from '../search-dialog/search-dialog.component';
 import { AuthorizationService } from '../services/authorization.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-student',
@@ -20,6 +21,7 @@ export class StudentComponent implements OnInit {
 
   constructor(private studentService: StudentService,
     private authService: AuthorizationService,
+    private spinnerService: SpinnerService,
     private route: ActivatedRoute,
     public dialog: MatDialog) { }
 
@@ -46,9 +48,11 @@ export class StudentComponent implements OnInit {
   }
 
   private loadData() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     let studentId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.studentService.getStudent(studentId).subscribe(response => {
       this.student = response;
+      this.spinnerService.HideSpinner('LoadingProcess');
     });
   }
 }

@@ -4,6 +4,7 @@ import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-edit-school',
@@ -16,6 +17,7 @@ export class EditSchoolComponent implements OnInit {
   formData: FormData;
 
   constructor(private schoolService: SchoolService,
+    private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<EditSchoolComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -26,7 +28,9 @@ export class EditSchoolComponent implements OnInit {
   }
 
   create(schoolFormValues) {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.schoolService.updateSchool(schoolFormValues.schoolName, this.school.SchoolId, this.formData).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("School created!", "Got it", {
         duration: 2000

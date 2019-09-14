@@ -7,6 +7,7 @@ import { AddStudentComponent } from '../add-student/add-student.component';
 import { AddInstructorComponent } from '../add-instructor/add-instructor.component';
 import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { AuthorizationService } from '../services/authorization.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-group',
@@ -23,6 +24,7 @@ export class GroupComponent implements OnInit {
     private route: ActivatedRoute,
     private groupService: GroupService,
     private authService: AuthorizationService,
+    private spinnerService: SpinnerService,
     public dialog: MatDialog) { }
 
     IsAdmin() {
@@ -75,8 +77,10 @@ export class GroupComponent implements OnInit {
   }
 
   private loadData() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     let groupId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.groupService.getGroupById(groupId).subscribe(response => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.group = response;
     });
   }

@@ -7,6 +7,7 @@ import { GroupInstructor } from '../models/group-instructor';
 import { Instructor } from '../models/instructor';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { SalaryType } from '../models/salary-type';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-add-instructor',
@@ -23,6 +24,7 @@ export class AddInstructorComponent implements OnInit {
   constructor(private instructorService: InstructorService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddInstructorComponent>,
+    private spinnerService: SpinnerService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
@@ -40,7 +42,9 @@ export class AddInstructorComponent implements OnInit {
       Type: addInstructorForm.Type
     };
 
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.instructorService.addInstructor(groupInstructor).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("Instructor are registered!", "Got it", {
         duration: 2000
@@ -61,7 +65,9 @@ export class AddInstructorComponent implements OnInit {
   };
 
   private getInstructors() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.instructorService.getInstructors().subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.instructors = res;
     })
   }

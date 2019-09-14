@@ -7,6 +7,7 @@ import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { Group } from '../models/group';
 import { Sport } from '../models/sport';
 import { School } from '../models/school';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-add-group',
@@ -21,10 +22,12 @@ export class AddGroupComponent implements OnInit {
   constructor(private groupService: GroupService,
     private sportService: SportService,
     private schoolService: SchoolService,
+    private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AddGroupComponent>) { }
 
   ngOnInit() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.getSports();
     this.getSchools();
     this.initFormGroup();
@@ -42,7 +45,9 @@ export class AddGroupComponent implements OnInit {
       Instructors: null
     };
 
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.groupService.createGroup(group).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("Group is registered!", "Got it", {
         duration: 2000
@@ -64,12 +69,14 @@ export class AddGroupComponent implements OnInit {
 
   private getSports() {
     this.sportService.getSports().subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.sports = res;
     });
   };
 
   private getSchools() {
     this.schoolService.getSchools().subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.schools = res;
     });
   };

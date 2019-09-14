@@ -15,7 +15,9 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.isUserLogin = this.authService.isLoginUser();
+    setInterval(() => {    
+      this.isUserLogin = this.authService.isLoginUser();
+    }, 500);  
   }
 
   loginCallback() {

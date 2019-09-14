@@ -4,6 +4,7 @@ import { SchoolService } from '../services/school.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EditSchoolComponent } from '../edit-school/edit-school.component';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-school',
@@ -17,6 +18,7 @@ export class SchoolComponent implements OnInit {
   displayedColumnsGroup = ['GroupName', 'SportName'];
 
   constructor(private schoolService: SchoolService,
+    private spinnerService: SpinnerService,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog) { }
@@ -41,18 +43,23 @@ export class SchoolComponent implements OnInit {
   }
 
   deleteSchool(): void {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.schoolService.deleteSchool(this.school.SchoolId).subscribe(response => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.router.navigate(['/schools']);
     });
   };  
 
   private loadData() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     let schoolId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.schoolService.getSchoolById(schoolId).subscribe(response => {
       this.school = response;
+      this.spinnerService.HideSpinner('LoadingProcess');
     });
     this.schoolService.getSchoolLogoById(schoolId).subscribe(response => {
       this.createImageFromBlob(response);
+      this.spinnerService.HideSpinner('LoadingProcess');
     });
   }
 

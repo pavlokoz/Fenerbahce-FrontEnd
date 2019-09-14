@@ -8,6 +8,7 @@ import { Group } from '../models/group';
 import { Sport } from '../models/sport';
 import { School } from '../models/school';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-edit-group',
@@ -23,6 +24,7 @@ export class EditGroupComponent implements OnInit {
   constructor(private groupService: GroupService,
     private sportService: SportService,
     private schoolService: SchoolService,
+    private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<EditGroupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -46,7 +48,9 @@ export class EditGroupComponent implements OnInit {
       Instructors: null
     };
 
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.groupService.updateGroup(group).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("Group is updated!", "Got it", {
         duration: 2000
@@ -67,13 +71,17 @@ export class EditGroupComponent implements OnInit {
   };
 
   private getSports() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.sportService.getSports().subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.sports = res;
     });
   };
 
   private getSchools() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.schoolService.getSchools().subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.schools = res;
     });
   };

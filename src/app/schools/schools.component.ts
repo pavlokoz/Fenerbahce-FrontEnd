@@ -4,6 +4,7 @@ import { SchoolService } from '../services/school.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddSchoolComponent } from '../add-school/add-school.component';
 import { AuthorizationService } from '../services/authorization.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-schools',
@@ -17,6 +18,7 @@ export class SchoolsComponent implements OnInit {
   constructor(
     private schoolService: SchoolService,
     private authService: AuthorizationService,
+    private spinnerService: SpinnerService,
     public dialog: MatDialog
     ) { }
 
@@ -40,8 +42,10 @@ export class SchoolsComponent implements OnInit {
     }
 
     private loadData() {
+      this.spinnerService.ShowSpinner('LoadingProcess');
       this.schoolService.getSchools().subscribe(response => {
         this.schools = response;
+        this.spinnerService.HideSpinner('LoadingProcess');
       });
     }
 }

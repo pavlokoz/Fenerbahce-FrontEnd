@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { AuthorizationService } from '../services/authorization.service';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { Role } from '../models/role';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-register.user',
@@ -21,6 +22,7 @@ export class RegisterUserComponent implements OnInit {
   private emailPattern: string = Constants.DataValidationConstants.EmailPattern;
 
   constructor(private authService: AuthorizationService,
+    private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<RegisterUserComponent>) { }
 
@@ -41,7 +43,9 @@ export class RegisterUserComponent implements OnInit {
       ConfirmPin: registerFormValues.confirmPin,
       Role: registerFormValues.role,
     };
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.authService.registerUser(user).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("User is registered!", "Got it", {
         duration: 2000

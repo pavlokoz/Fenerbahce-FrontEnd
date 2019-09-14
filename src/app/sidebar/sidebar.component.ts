@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RegisterUserComponent } from '../register-user/register-user.component';
 import { AuthorizationService } from '../services/authorization.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,8 @@ export class SidebarComponent implements OnInit {
   isUserLogin: boolean;
 
   constructor(public dialog: MatDialog,
-    private authService: AuthorizationService) { }
+    private authService: AuthorizationService,
+    private router: Router) { }
 
   ngOnInit() {
     setInterval(()=>{    
@@ -33,5 +35,10 @@ export class SidebarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  logOut(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

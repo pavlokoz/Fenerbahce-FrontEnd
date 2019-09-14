@@ -7,6 +7,7 @@ import { debounceTime } from 'rxjs/operators';
 import { SearchService } from '../services/search.service';
 import { Parent } from '../models/parent';
 import { StudentParent } from '../models/student-parent';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-search-dialog',
@@ -18,7 +19,8 @@ export class SearchDialogComponent implements OnInit {
   searchInput: FormControl = new FormControl();
   searchResult: Parent[] = [];
 
-  constructor(private searchService: SearchService,    
+  constructor(private searchService: SearchService, 
+    private spinnerService: SpinnerService,   
     @Inject(MAT_DIALOG_DATA) public data: any,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<SearchDialogComponent>) { }
@@ -44,7 +46,9 @@ export class SearchDialogComponent implements OnInit {
       ParentId: parentId,
       StudentId: this.data.StudentId
     }
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.searchService.addParent(data).subscribe(res => {
+      this.spinnerService.HideSpinner('LoadingProcess');
       this.dialogRef.close();
       this.snackBar.open("Parent added!", "Got it", {
         duration: 2000
