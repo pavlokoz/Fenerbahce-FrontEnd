@@ -48,6 +48,9 @@ import { EditGroupComponent } from './edit-group/edit-group.component';
 import { EditSchoolComponent } from './edit-school/edit-school.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './services/spinner.service';
+import { AddPaymentComponent } from './add-payment/add-payment.component';
+import { PaymentService } from './services/payment.service';
+import { EditPaymentComponent } from './edit-payment/edit-payment.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,8 @@ import { SpinnerService } from './services/spinner.service';
     EditGroupComponent,
     EditSchoolComponent,
     SpinnerComponent,
+    AddPaymentComponent,
+    EditPaymentComponent,
   ],
   entryComponents: [
     AddGroupComponent, 
@@ -77,9 +82,11 @@ import { SpinnerService } from './services/spinner.service';
     AddSchoolComponent, 
     RegisterUserComponent, 
     AddInstructorComponent,
+    AddPaymentComponent,
     SearchDialogComponent,
     EditGroupComponent,
-    EditSchoolComponent
+    EditSchoolComponent,
+    EditPaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -135,6 +142,7 @@ import { SpinnerService } from './services/spinner.service';
     InstructorService,
     StudentService,
     SearchService,
+    PaymentService,
     SpinnerService
   ],
   bootstrap: [AppComponent],
