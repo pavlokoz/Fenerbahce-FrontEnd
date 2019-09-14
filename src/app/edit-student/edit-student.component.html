@@ -1,0 +1,36 @@
+<div class="main-div">
+    <md-card style="max-width: 500px; ">
+        <md-card-header>
+            <md-card-header-text>
+                <h2 class="md-title" style="text-align: center">EDIT STUDENT</h2>
+            </md-card-header-text>
+        </md-card-header>
+        <form [formGroup]="editStudentForm" autocomplete="off" novalidate (ngSubmit)="editStudent(editStudentForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center">
+            <md-card-content>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="LastName" placeholder="Last Name">
+                    <mat-error *ngIf="hasError('LastName', 'required')">Last Name is required</mat-error>
+                    <mat-error *ngIf="hasError('LastName', 'pattern')">Last Name is not valid</mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="FirstName" placeholder="First Name">
+                    <mat-error *ngIf="hasError('FirstName', 'required')">First Name is required</mat-error>
+                    <mat-error *ngIf="hasError('FirstName', 'pattern')">First Name is not valid</mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput  [matDatepicker]="DateOfBirthPicker" formControlName="DateOfBirth"
+                        placeholder="Date Start">
+                    <mat-datepicker-toggle matSuffix [for]="DateOfBirthPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #DateOfBirthPicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="Patrimonial" placeholder="Patrimonial">
+                </mat-form-field>
+            </md-card-content>
+            <mat-card-actions class="display-center" style="padding: 10px 0;">
+                <button mat-raised-button [disabled]="!editStudentForm.valid || !editStudentForm.dirty">Save</button>
+            </mat-card-actions>
+        </form>
+    </md-card>
+</div>

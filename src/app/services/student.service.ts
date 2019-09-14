@@ -14,6 +14,7 @@ export class StudentService {
   private urlForCreateStudent: string = Constants.CurrentBackEndHost + 'api/Student/CreateStudent';
   private urlForGetStudent: string = Constants.CurrentBackEndHost + 'api/Student/GetStudent';
   private urlForDeleteStudent: string = Constants.CurrentBackEndHost + 'api/Student/DeleteStudent';
+  private urlForUpdateStudent: string = Constants.CurrentBackEndHost + 'api/Student/UpdateStudent';
 
   constructor(private _http: HttpClient,
     private authService: AuthorizationService,
@@ -37,6 +38,25 @@ export class StudentService {
           })
       );
   }
+
+  updateStudent(student: Student, groupId: number): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+       content = student,
+       params = new HttpParams().
+                    set('groupId', groupId.toString());
+    
+    return this._http.put(this.urlForUpdateStudent, content, { headers: headers, params: params }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
+}
 
   getStudent(studentId: number): Observable<Student> {
     let tokenData = 'Bearer ' + this.authService.getToken(),

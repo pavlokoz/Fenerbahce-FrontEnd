@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthorizationService } from '../services/authorization.service';
 
 @Component({
   selector: 'app-school',
@@ -15,6 +16,7 @@ export class SchoolComponent implements OnInit {
   displayedColumnsGroup = ['GroupName', 'SportName'];
 
   constructor(private schoolService: SchoolService,
+    private authService: AuthorizationService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -33,6 +35,10 @@ export class SchoolComponent implements OnInit {
       this.router.navigate(['/schools']);
     });
   };
+
+  IsAdmin() {
+    return this.authService.isAdmin();
+  }
 
   private createImageFromBlob(image: Blob): any {
     let reader = new FileReader();
