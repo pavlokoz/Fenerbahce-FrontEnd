@@ -45,6 +45,8 @@ import { StudentComponent } from './student/student.component';
 import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 import { SearchService } from './services/search.service';
 import { EditGroupComponent } from './edit-group/edit-group.component';
+import { EditStudentComponent } from './edit-student/edit-student.component';
+import { EditInstructorComponent } from './edit-instructor/edit-instructor.component';
 import { EditSchoolComponent } from './edit-school/edit-school.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './services/spinner.service';
@@ -71,6 +73,8 @@ import { EditPaymentComponent } from './edit-payment/edit-payment.component';
     StudentComponent,
     SearchDialogComponent,
     EditGroupComponent,
+    EditStudentComponent,
+    EditInstructorComponent,
     EditSchoolComponent,
     SpinnerComponent,
     AddPaymentComponent,
@@ -84,6 +88,9 @@ import { EditPaymentComponent } from './edit-payment/edit-payment.component';
     AddInstructorComponent,
     AddPaymentComponent,
     SearchDialogComponent,
+    EditGroupComponent, 
+    EditStudentComponent,
+    EditInstructorComponent,
     EditGroupComponent,
     EditSchoolComponent,
     EditPaymentComponent

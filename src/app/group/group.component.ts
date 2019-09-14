@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../models/group';
 import { GroupService } from '../services/group.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -7,8 +7,11 @@ import { AddStudentComponent } from '../add-student/add-student.component';
 import { AddInstructorComponent } from '../add-instructor/add-instructor.component';
 import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { AuthorizationService } from '../services/authorization.service';
+import { InstructorService } from '../services/instructor.service';
+import { EditInstructorComponent } from '../edit-instructor/edit-instructor.component';
 import { SpinnerService } from '../services/spinner.service';
 import { Constants } from '../constants';
+import { GroupInstructor } from '../models/group-instructor';
 
 @Component({
   selector: 'app-group',
@@ -21,12 +24,14 @@ export class GroupComponent implements OnInit {
 
   group: Group;
   displayedColumnsGroup = ['FirstName', 'LastName', 'DateOfBirth'];
-  displayedInstructorColumns = ['FirstName', 'LastName', 'DateOfBirth', 'Salary', 'SalaryType'];
+  displayedInstructorColumns = ['FirstName', 'LastName', 'DateOfBirth', 'Salary', 'SalaryType', 'Edit', 'Delete'];
 
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
     private authService: AuthorizationService,
+    private instructorService: InstructorService,
+    private router: Router,
     private spinnerService: SpinnerService,
     public dialog: MatDialog) { }
 
@@ -56,6 +61,43 @@ export class GroupComponent implements OnInit {
       this.loadData();
     });
   }
+    deleteGroup(): void {
+      this.groupService.deleteGroup(this.group.GroupId).subscribe(response => {
+        this.router.navigate(['/groups']);
+      });
+    };
+
+    deleteInstructor(instructorId: number, groupId: number): void {
+      this.instructorService.deleteInstructor(instructorId, groupId).subscribe(response => {
+        this.loadData();
+      });  
+    };
+
+    ModalInstructor(): void {
+      const dialogRef = this.dialog.open(AddInstructorComponent, {
+        width: '540px',
+        height: '450px',
+        data: {
+          GroupId: this.group.GroupId
+        }
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        this.loadData();
+      });
+    }
+
+    editInstructor(groupInstructor: GroupInstructor): void {
+      const dialogRef = this.dialog.open(EditInstructorComponent, {
+        width: '540px',
+        height: '450px',
+        data: {
+          GroupInstructor: groupInstructor
+        }
+      }); 
+      dialogRef.afterClosed().subscribe(res => {
+        this.loadData();
+      });
+    }
 
   editGroup(): void {
     const dialogRef = this.dialog.open(EditGroupComponent, {
@@ -66,19 +108,6 @@ export class GroupComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(res => {
-      this.loadData();
-    });
-  }
-
-  ModalInstructor(): void {
-    const dialogRef = this.dialog.open(AddInstructorComponent, {
-      width: '540px',
-      height: '450px',
-      data: {
-        GroupId: this.group.GroupId
-      }
-    });
     dialogRef.afterClosed().subscribe(res => {
       this.loadData();
     });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthorizationService } from '../services/authorization.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EditSchoolComponent } from '../edit-school/edit-school.component';
 import { SpinnerService } from '../services/spinner.service';
@@ -18,6 +19,7 @@ export class SchoolComponent implements OnInit {
   displayedColumnsGroup = ['GroupName', 'SportName'];
 
   constructor(private schoolService: SchoolService,
+    private authService: AuthorizationService,
     private spinnerService: SpinnerService,
     private route: ActivatedRoute,
     private router: Router,
@@ -61,6 +63,10 @@ export class SchoolComponent implements OnInit {
       this.createImageFromBlob(response);
       this.spinnerService.HideSpinner('LoadingProcess');
     });
+  }
+
+  IsAdmin() {
+    return this.authService.isAdmin();
   }
 
   private createImageFromBlob(image: Blob): any {
