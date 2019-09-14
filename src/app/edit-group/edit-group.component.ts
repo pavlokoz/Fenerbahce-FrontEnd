@@ -45,7 +45,7 @@ export class EditGroupComponent implements OnInit {
       SportId: editGroupForm.sportId,
       SportName: null,
       Students: null,
-      Instructors: null
+      GroupInstructors: null
     };
 
     this.spinnerService.ShowSpinner('LoadingProcess');
