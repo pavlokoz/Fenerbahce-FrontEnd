@@ -11,6 +11,7 @@ import { InstructorService } from '../services/instructor.service';
 import { EditInstructorComponent } from '../edit-instructor/edit-instructor.component';
 import { SpinnerService } from '../services/spinner.service';
 import { Constants } from '../constants';
+import { GroupInstructor } from '../models/group-instructor';
 
 @Component({
   selector: 'app-group',
@@ -85,12 +86,12 @@ export class GroupComponent implements OnInit {
       });
     }
 
-    editInstructor(): void {
+    editInstructor(groupInstructor: GroupInstructor): void {
       const dialogRef = this.dialog.open(EditInstructorComponent, {
         width: '540px',
         height: '450px',
         data: {
-          GroupId: this.group.GroupId
+          GroupInstructor: groupInstructor
         }
       }); 
       dialogRef.afterClosed().subscribe(res => {

@@ -23,9 +23,9 @@ export class EditInstructorComponent implements OnInit {
     private dialogRef: MatDialogRef<EditInstructorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() {
+  ngOnInit() {  
     this.initFormInstructor();
-    this.salaryTypes = Constants.InstuctorConstants.SalatyTypes;
+    this.salaryTypes = Constants.InstuctorConstants.SalaryTypes;
     this.getInstructors();
     //this.createCallback = new EventEmitter();
   }
@@ -33,9 +33,10 @@ export class EditInstructorComponent implements OnInit {
   editInstructor(editInstructorForm) {
     let groupInstructor: GroupInstructor = {
       InstructorId: editInstructorForm.Instructor,
-      GroupId: this.data.GroupId,
+      GroupId: this.data.GroupInstructor.GroupId,
       Salary: editInstructorForm.Salary,
-      Type: editInstructorForm.Type
+      Type: editInstructorForm.Type,
+      Instructor: null,
     };
 
     this.instructorService.updateInstructor(groupInstructor).subscribe(res => {
@@ -52,9 +53,9 @@ export class EditInstructorComponent implements OnInit {
 
   private initFormInstructor() {
     this.editInstructorForm = new FormGroup({
-      Instructor: new FormControl('', [Validators.required]),
-      Salary: new FormControl(0, [Validators.required, Validators.min(1)]),
-      Type: new FormControl('', [Validators.required]),
+      Instructor: new FormControl(this.data.GroupInstructor.InstructorId, [Validators.required]),
+      Salary: new FormControl(this.data.GroupInstructor.Salary, [Validators.required, Validators.min(1)]),
+      Type: new FormControl(this.data.GroupInstructor.Type, [Validators.required]),
     });
   };
 

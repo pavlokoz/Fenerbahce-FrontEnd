@@ -37,7 +37,8 @@ editStudent(editStudentForm) {
     Patrimonial: editStudentForm.Patrimonial,
     GroupName: this.data.GroupName,
     GroupId: this.data.GroupId,
-    Parents: null
+    Parents: null,
+    Payments: null,
   };
 
   this.studentService.updateStudent(student, this.data.GroupId).subscribe(res => {

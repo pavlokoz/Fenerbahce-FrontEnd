@@ -10,7 +10,7 @@
                 <md-card-content>
                     <mat-form-field class="full-width">
                         <mat-label>Instructor</mat-label>
-                        <mat-select formControlName="Instructor">
+                        <mat-select disabled formControlName="Instructor">
                             <mat-option *ngFor="let instructor of instructors" [value]="instructor.InstructorId">
                                 {{instructor.FirstName + instructor.LastName}}
                             </mat-option>
