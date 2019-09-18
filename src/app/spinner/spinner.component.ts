@@ -11,7 +11,7 @@ import { Constants } from './../constants';
 export class SpinnerComponent implements OnInit {
 
   @Input() name: string;
-  @Input() loadingImage: string = '../assets/img/LoadingAnimations/dance.gif';
+  @Input() loadingImage: string = '../assets/img/LoadingAnimations/spinner1.gif';
   @Input() isShown: boolean = false;
 
   public spinnerName: string;
