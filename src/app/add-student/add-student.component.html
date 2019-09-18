@@ -19,24 +19,17 @@
                     <mat-error *ngIf="hasError('FirstName', 'pattern')">First Name is not valid</mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <input matInput formControlName="Email" placeholder="Email">
-                    <mat-error *ngIf="hasError('Email', 'required')">Email is required</mat-error>
-                    <mat-error *ngIf="hasError('Email', 'pattern')">Email is not valid</mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <input matInput formControlName="Phone" placeholder="Phone">
-                    <mat-error *ngIf="hasError('Phone', 'required')">Phone is required</mat-error>
-                    <mat-error *ngIf="hasError('Phone', 'pattern')">Phone is not valid</mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width">
                     <input matInput  [matDatepicker]="DateOfBirthPicker" formControlName="DateOfBirth"
                         placeholder="Date Start">
                     <mat-datepicker-toggle matSuffix [for]="DateOfBirthPicker"></mat-datepicker-toggle>
                     <mat-datepicker #DateOfBirthPicker></mat-datepicker>
                 </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="Patrimonial" placeholder="Patrimonial">
+                </mat-form-field>
             </md-card-content>
             <mat-card-actions class="display-center" style="padding: 10px 0;">
-                <button mat-raised-button [disabled]="!addStudentForm.valid">Submit</button>
+                <button mat-raised-button [disabled]="!addStudentForm.valid">Create</button>
             </mat-card-actions>
         </form>
     </md-card>

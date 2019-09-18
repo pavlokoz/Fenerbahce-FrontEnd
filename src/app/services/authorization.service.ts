@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { User } from '../models/user';
 import { Login } from '../models/login';
 import { Constants } from '../constants';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
     providedIn: 'root'
@@ -12,23 +13,11 @@ import { Constants } from '../constants';
 
 export class AuthorizationService {
 
-    private urlForRegistration: string = 'http://localhost:56137/api/Account/Register';
-    private urlForRegisterUser: string = 'http://localhost:56137/api/Account/RegisterOfUser';
-    private urlForLogin: string = 'http://localhost:56137/Token';
-    private urlForCheckRegisteredUsers: string = 'http://localhost:56137/api/Account/HasRegisteredUsers';
-    private token: string;
+    private urlForRegisterUser: string = Constants.AuthorizationServiceConstants.UrlForRegistration;
+    private urlForLogin: string = Constants.AuthorizationServiceConstants.UrlForAuthorization;
 
-    constructor(private _http: HttpClient) {
-        this.token = this.getToken();
-    }
-
-    register(user: User): Observable<any> {
-        var headers = new HttpHeaders();
-        var content = user;
-        headers.append('Content-Type', 'application/json');
-        return this._http.post(this.urlForRegistration, content, { headers: headers }).pipe(
-            catchError(this.handleError)
-        );
+    constructor(private _http: HttpClient,
+        private snackBar: MatSnackBar) {
     }
 
     registerUser(user: User): Observable<any> {
@@ -39,31 +28,34 @@ export class AuthorizationService {
            content = user;
         
         return this._http.post(this.urlForRegisterUser, content, { headers: headers }).pipe(
-            catchError(this.handleError)
+            catchError(res => {
+                this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+                  duration: 2000
+                });
+                return this.handleError(res);
+              })
         );
     }
 
     login(user: Login): Observable<any> {
-        var headers = new HttpHeaders();
+        var headers = new HttpHeaders().
+                        set('Content-Type', 'application/x-www-form-urlencoded').
+                        set('Environement', 'Browser');
         var content = Constants.RegistrationConstants.GrantType + 
                       '&username=' + user.UserName + 
                       '&password=' + user.Password;
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(this.urlForLogin, content, { headers: headers }).pipe(
-            catchError(this.handleError)
+            catchError(res => {
+                this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+                  duration: 2000
+                });
+                return this.handleError(res);
+              })
         );
     }
 
     setAuthData(tokenData: any) {
         localStorage.setItem("user", btoa(JSON.stringify(tokenData)));
-    }
-
-    hasRegisteredUsers(): Observable<boolean> {
-        var headers = new HttpHeaders();
-        headers.append('Content-Type', 'application/json');
-        return this._http.get<boolean>(this.urlForCheckRegisteredUsers, { headers: headers }).pipe(
-            catchError(this.handleError)
-        );
     }
 
     getToken(): string {
@@ -79,8 +71,16 @@ export class AuthorizationService {
         return this.getToken() !== null;
     }
 
+    isAdmin(): boolean {
+        if (localStorage.getItem("user")) {
+            let user = JSON.parse(atob(localStorage.getItem("user")));
+            return user ? user.roleId == 1 : false;
+        } else {
+            return false;
+        }
+    }
+
     logout(): void {
-        this.token = null;
         localStorage.removeItem("user");
     }
 

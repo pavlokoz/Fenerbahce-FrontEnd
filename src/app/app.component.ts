@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService} from './services/spinner.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Uspihh-Angular';
+  title = 'Fenerbahce';
+  spinnerName: string = 'LoadingProcess';
 }

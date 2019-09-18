@@ -1,14 +1,16 @@
-import { Role } from 'src/app/models/role';
+import { Role } from './models/role';
+import { SalaryType } from './models/salary-type';
+import { PaymentType } from './models/payment-type';
 
 export class Constants {
-    static CurrentBackEndHost: string = 'https://localhost:44317/';
+    static CurrentBackEndHost: string = 'http://6547360.online-server.cloud/FenerbahceBackEnd/';
     
     //Constants for AuthorizationService
     static AuthorizationServiceConstants = class {
 
         static UrlForAuthorization: string = Constants.CurrentBackEndHost + 'Token';
 
-        static UrlForRegistration: string = Constants.CurrentBackEndHost + 'api/Account/Register';
+        static UrlForRegistration: string = Constants.CurrentBackEndHost + 'api/Account/RegisterOfUser';
     }
 
     //Constants for data validation
@@ -25,6 +27,36 @@ export class Constants {
         static pricePattern: string;
     }    
 
+    static InstuctorConstants = class {
+        static SalaryTypes: SalaryType[] = [
+            {
+                TypeCode: 'M',
+                TypeDescription: 'Monthly'
+            },
+            {
+                TypeCode: 'L',
+                TypeDescription: 'Per Lesson'
+            }
+         ];
+    }
+
+    static PaymentConstants = class {
+        static PaymentTypes: PaymentType[] = [
+            {
+                TypeCode: 'M',
+                TypeDescription: 'Monthly payments'
+            },
+            {
+                TypeCode: 'F',
+                TypeDescription: 'Fenerium'
+            },
+            {
+                TypeCode: 'E',
+                TypeDescription: 'Extra'
+            }
+         ];
+    }
+
     static RegistrationConstants = class {
         static UserRoles: Role[] = [
             {
@@ -33,12 +65,17 @@ export class Constants {
             },
             {
                 RoleId: 2,
-                RoleDescription: 'Teacher' 
+                RoleDescription: 'Accountant' 
             },
             {
                 RoleId: 3,
-                RoleDescription: 'Accountant' 
+                RoleDescription: 'Instructor' 
+            },
+            {
+                RoleId: 4,
+                RoleDescription: 'Parent' 
             }
+
          ];
          static GrantType: string = 'grant_type=password';
          static Email: string = 'Email=';

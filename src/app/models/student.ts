@@ -1,8 +1,14 @@
+import { Parent } from './parent';
+import { Payment } from './payment';
+
 export interface Student {
     StudentId: number;
-    Email: string;
     FirstName: string;
     LastName: string;
     DateOfBirth: Date;
-    PhoneNumber: string;
+    Patrimonial: string;
+    GroupId: number;
+    GroupName: string;
+    Parents: Parent[];
+    Payments: Payment[];
 }

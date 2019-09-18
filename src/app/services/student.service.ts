@@ -4,15 +4,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Student } from '../models/student';
 import { AuthorizationService } from './authorization.service';
+import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  private urlForCreateStudent: string = 'http://localhost:56137/api/Student/CreateStudent';
+  private urlForCreateStudent: string = Constants.CurrentBackEndHost + 'api/Student/CreateStudent';
+  private urlForGetStudent: string = Constants.CurrentBackEndHost + 'api/Student/GetStudent';
+  private urlForDeleteStudent: string = Constants.CurrentBackEndHost + 'api/Student/DeleteStudent';
+  private urlForUpdateStudent: string = Constants.CurrentBackEndHost + 'api/Student/UpdateStudent';
 
   constructor(private _http: HttpClient,
-    private authService: AuthorizationService) { }
+    private authService: AuthorizationService,
+    private snackBar: MatSnackBar) { }
 
     createStudent(student: Student, groupId: number): Observable<any> {
       let tokenData = 'Bearer ' + this.authService.getToken(),        
@@ -24,8 +30,63 @@ export class StudentService {
                       set('groupId', groupId.toString());
       
       return this._http.post(this.urlForCreateStudent, content, { headers: headers, params: params }).pipe(
-          catchError(this.handleError)
+          catchError(res => {
+            this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+              duration: 2000
+            });
+            return this.handleError(res);
+          })
       );
+  }
+
+  updateStudent(student: Student, groupId: number): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+       content = student,
+       params = new HttpParams().
+                    set('groupId', groupId.toString());
+    
+    return this._http.put(this.urlForUpdateStudent, content, { headers: headers, params: params }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
+}
+
+  getStudent(studentId: number): Observable<Student> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),
+      headers = new HttpHeaders().
+        set('Content-Type', 'application/json').
+        set('Authorization', tokenData),
+      params = new HttpParams().
+            set('studentId', studentId.toString());   
+
+    return this._http.get<Student>(this.urlForGetStudent, { headers: headers, params: params }).pipe(
+      catchError(this.handleError)
+    );
+  };
+
+  deleteStudent(studentId: number): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+        params = new HttpParams().
+                    set('studentId', studentId.toString());
+    
+    return this._http.delete(this.urlForDeleteStudent, { headers: headers, params: params }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -39,6 +100,7 @@ export class StudentService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
+
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');

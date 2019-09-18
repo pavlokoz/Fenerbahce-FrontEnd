@@ -1,0 +1,36 @@
+<div class="main-div">
+    <md-card style="max-width: 500px; ">
+        <md-card-header>
+            <md-card-header-text>
+                <h2 class="md-title" style="text-align: center">ADD INSTRUCTOR</h2>
+            </md-card-header-text>
+        </md-card-header>
+        <form [formGroup]="addInstructorForm" autocomplete="off" novalidate (ngSubmit)="addInstructor(addInstructorForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center">
+            <md-card-content>
+                <mat-form-field class="full-width">
+                    <mat-label>Instructor</mat-label>
+                    <mat-select formControlName="Instructor">
+                        <mat-option *ngFor="let instructor of instructors" [value]="instructor.InstructorId">
+                            {{instructor.FirstName + instructor.LastName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Salary Type</mat-label>
+                    <mat-select formControlName="Type">
+                        <mat-option *ngFor="let type of salaryTypes" [value]="type.TypeCode">
+                            {{type.TypeDescription}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput type="number" formControlName="Salary" placeholder="Salary">
+                </mat-form-field>
+            </md-card-content>
+            <mat-card-actions class="display-center" style="padding: 10px 0;">
+                <button mat-raised-button [disabled]="!addInstructorForm.valid">Submit</button>
+            </mat-card-actions>
+        </form>
+    </md-card>
+</div>

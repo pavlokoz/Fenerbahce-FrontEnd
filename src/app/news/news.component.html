@@ -1,0 +1,23 @@
+<div class="title">
+    <h2>News</h2>
+</div>
+<div style="text-align: right; margin-right: 10%;" *ngIf="IsAdmin()">
+    <button style="text-align: right" mat-raised-button routerLink="addnews">
+        <a routerLink="addnews">
+            Add News
+        </a>
+    </button>
+</div>
+<div  class="title" *ngFor="let item of news">
+    <section class="col-xs-12">
+        <div class="row">
+            <h3>
+                <a routerLink="/news/{{item.NewsId}}">{{item.Title}}</a>
+            </h3>
+        </div>
+
+        <article class="text">
+            {{item.Info}}
+        </article>
+    </section>
+</div>

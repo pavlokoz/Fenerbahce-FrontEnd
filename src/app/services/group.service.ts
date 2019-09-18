@@ -4,17 +4,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Group } from '../models/group';
 import { AuthorizationService } from './authorization.service';
+import { MatSnackBar } from '@angular/material';
+import { Constants } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
-  private urlForGetGroups: string = 'http://localhost:56137/api/Group/GetAllGroups';
-  private urlForGetGroup: string = 'http://localhost:56137/api/Group/GetGroupById';
-  private urlForCreateGroup: string = 'http://localhost:56137/api/Group/CreateGroup';
+  private urlForGetGroups: string = Constants.CurrentBackEndHost + 'api/Group/GetAllGroups';
+  private urlForGetGroup: string = Constants.CurrentBackEndHost + 'api/Group/GetGroupById';
+  private urlForCreateGroup: string = Constants.CurrentBackEndHost + 'api/Group/CreateGroup';
+  private urlForUpdateGroup: string = Constants.CurrentBackEndHost + 'api/Group/UpdateGroup';
+  private urlForDeleteGroup: string = Constants.CurrentBackEndHost + 'api/Group/DeleteGroup';
 
   constructor(private _http: HttpClient,
-    private authService: AuthorizationService) { }
+    private authService: AuthorizationService,
+    private snackBar: MatSnackBar) { }
 
   getGroups(): Observable<Group[]> {
     let tokenData = 'Bearer ' + this.authService.getToken(),
@@ -23,7 +28,12 @@ export class GroupService {
         set('Authorization', tokenData);
 
     return this._http.get<Group[]>(this.urlForGetGroups, { headers: headers }).pipe(
-      catchError(this.handleError)
+      catchError(res => {
+        this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+          duration: 2000
+        });
+        return this.handleError(res);
+      })
     );
   }
 
@@ -36,7 +46,12 @@ export class GroupService {
             set('groupId', groupId.toString());   
 
     return this._http.get<Group>(this.urlForGetGroup, { headers: headers, params: params }).pipe(
-      catchError(this.handleError)
+      catchError(res => {
+        this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+          duration: 2000
+        });
+        return this.handleError(res);
+      })
     );
   }
 
@@ -48,9 +63,49 @@ export class GroupService {
        content = group;
     
     return this._http.post(this.urlForCreateGroup, content, { headers: headers }).pipe(
-        catchError(this.handleError)
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
     );
-}
+  }
+
+  updateGroup(group: Group): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+       content = group;
+    
+    return this._http.put(this.urlForUpdateGroup, content, { headers: headers }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
+  }
+
+  deleteGroup(groupId: number): Observable<any> {
+    let tokenData = 'Bearer ' + this.authService.getToken(),        
+        headers = new HttpHeaders().
+                    set('Content-Type', 'application/json').
+                    set('Authorization', tokenData),        
+        params = new HttpParams().
+                    set('groupId', groupId.toString());
+    
+    return this._http.delete(this.urlForDeleteGroup, { headers: headers, params: params }).pipe(
+        catchError(res => {
+          this.snackBar.open("An Error Occured! Please, try again", "Got it", {
+            duration: 2000
+          });
+          return this.handleError(res);
+        })
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

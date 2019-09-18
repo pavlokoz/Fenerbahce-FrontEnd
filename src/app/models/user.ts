@@ -6,5 +6,7 @@ export interface User {
     DateOfBirth: Date;
     Password: string;
     ConfirmPassword: string;
+    SecurityPin: string;
+    ConfirmPin: string;
     Role: number;
 }

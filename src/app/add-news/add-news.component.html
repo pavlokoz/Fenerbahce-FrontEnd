@@ -1,0 +1,32 @@
+<div style="margin: 0 100px;" class="main-div">
+        <md-card class="full-width">
+            <md-card-header>
+                <md-card-header-text>
+                    <h2 class="md-title" style="text-align: center">ADD NEWS</h2>
+                </md-card-header-text>
+            </md-card-header>
+            <form [formGroup]="newsForm" autocomplete="off" novalidate (ngSubmit)="create(newsForm.value)"
+                fxLayout="column wrap" fxLayoutAlign="center center">
+                <md-card-content>
+                    <mat-form-field class="full-width">
+                        <input matInput formControlName="newsTitle" placeholder="Title">
+                    </mat-form-field>
+                    <div class="full-width">
+                        <input #logoImage formControlName="newsLogo" type="file" placeholder="Logo" (change)="onFileChanged($event)">
+                    </div>
+                    <mat-form-field class="full-width">
+                        <textarea matInput 
+                                  cdkTextareaAutosize
+                                  #autosize="cdkTextareaAutosize"
+                                  cdkAutosizeMinRows="10"
+                                  cdkAutosizeMaxRows="50"
+                                  formControlName="newsText" 
+                                  placeholder="Text"></textarea>
+                    </mat-form-field>    
+                </md-card-content>
+                <mat-card-actions class="display-center" style="padding: 10px 0;">
+                    <button mat-raised-button [disabled]="!newsForm.valid">Submit</button>
+                </mat-card-actions>
+            </form>
+        </md-card>
+    </div>

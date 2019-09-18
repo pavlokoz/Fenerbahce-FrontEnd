@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Group } from '../models/group';
 import { GroupService } from '../services/group.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddGroupComponent } from '../add-group/add-group.component';
+import { AuthorizationService } from '../services/authorization.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-groups',
@@ -11,31 +13,39 @@ import { AddGroupComponent } from '../add-group/add-group.component';
 })
 export class GroupsComponent implements OnInit {
  
-  animal: string;
-
   groups: Group[] = [];
-  displayedColumns = ['GroupName', 'MaxCountOfStudent', 'StartDate', 'EndDate', 'MonthPrice'];
+  displayedColumns = ['GroupName', 'SportName', 'SchoolName'];
   constructor(
     private groupService: GroupService,
-    public dialog: MatDialog
+    private authService: AuthorizationService,    
+    public dialog: MatDialog,
+    private spinnerService: SpinnerService
     ) { }
+
+    IsAdmin() {
+      return this.authService.isAdmin();
+    }
 
     openDialog(): void {
       const dialogRef = this.dialog.open(AddGroupComponent, {
         width: '540px',
-        height: '580px'
+        height: '380px'
       });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        this.animal = result;
-      });
-    }
-  
 
-  ngOnInit() {
+      dialogRef.afterClosed().subscribe(res => {
+        this.loadData();
+      });
+  }  
+
+  private loadData() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
     this.groupService.getGroups().subscribe(response => {
       this.groups = response;
+      this.spinnerService.HideSpinner('LoadingProcess');
     });
+  }
+
+  ngOnInit() {
+    this.loadData();
   }
 }

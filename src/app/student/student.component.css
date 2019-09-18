@@ -1,0 +1,30 @@
+table{
+
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.title{
+    margin-left: 135px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin: 0;
+}
+
+.search-option {
+    display:block; 
+    text-decoration: none;
+}
+
+.form {
+    width: 100%;
+}
+
+
+#search{
+    background-color:rgb(240, 240, 240); 
+    z-index: 999;
+}
