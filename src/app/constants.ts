@@ -3,7 +3,7 @@ import { SalaryType } from './models/salary-type';
 import { PaymentType } from './models/payment-type';
 
 export class Constants {
-    static CurrentBackEndHost: string = 'http://6547360.online-server.cloud/FenerbahceBackEnd/';
+    static CurrentBackEndHost: string = 'http://localhost:56833/';
     
     //Constants for AuthorizationService
     static AuthorizationServiceConstants = class {

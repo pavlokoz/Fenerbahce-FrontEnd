@@ -56,6 +56,10 @@ import { EditPaymentComponent } from './edit-payment/edit-payment.component';
 import { NewsComponent } from './news/news.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { AddNewsComponent } from './add-news/add-news.component';
+import { EditNewsComponent } from './edit-news/edit-news.component';
+import { ParentService } from './services/parent.service';
+import { UsersComponent } from './users/users.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -85,6 +89,8 @@ import { AddNewsComponent } from './add-news/add-news.component';
     NewsComponent,
     NewsDetailComponent,
     AddNewsComponent,
+    EditNewsComponent,
+    UsersComponent,
   ],
   entryComponents: [
     AddGroupComponent, 
@@ -99,7 +105,8 @@ import { AddNewsComponent } from './add-news/add-news.component';
     EditInstructorComponent,
     EditGroupComponent,
     EditSchoolComponent,
-    EditPaymentComponent
+    EditPaymentComponent,
+    EditNewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,10 +160,12 @@ import { AddNewsComponent } from './add-news/add-news.component';
     SportService,
     SchoolService,
     InstructorService,
+    ParentService,
     StudentService,
     SearchService,
     PaymentService,
-    SpinnerService
+    SpinnerService,
+    UserService
   ],
   bootstrap: [AppComponent],
   schemas: [
