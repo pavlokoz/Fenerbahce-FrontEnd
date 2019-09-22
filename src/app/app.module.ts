@@ -1,8 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -56,6 +57,12 @@ import { EditPaymentComponent } from './edit-payment/edit-payment.component';
 import { NewsComponent } from './news/news.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { AddNewsComponent } from './add-news/add-news.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { SchoolScheduleComponent } from './school-schedule/school-schedule.component';
+import { AddEventComponent } from './add-event/add-event.component';
+import { NewsService } from './services/news.service';
+import { EventService } from './services/event.service';
+import { EditEventComponent } from './edit-event/edit-event.component';
 
 @NgModule({
   declarations: [
@@ -85,8 +92,12 @@ import { AddNewsComponent } from './add-news/add-news.component';
     NewsComponent,
     NewsDetailComponent,
     AddNewsComponent,
+    SchoolScheduleComponent,
+    AddEventComponent,
+    EditEventComponent
   ],
   entryComponents: [
+    AddEventComponent,
     AddGroupComponent, 
     AddStudentComponent, 
     AddSchoolComponent, 
@@ -99,7 +110,8 @@ import { AddNewsComponent } from './add-news/add-news.component';
     EditInstructorComponent,
     EditGroupComponent,
     EditSchoolComponent,
-    EditPaymentComponent
+    EditPaymentComponent,
+    EditEventComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +133,9 @@ import { AddNewsComponent } from './add-news/add-news.component';
     MatTableModule,
     MatToolbarModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    FullCalendarModule,
+    NgxMaterialTimepickerModule
   ],
   exports: [
     AddStudentComponent,
@@ -145,7 +159,9 @@ import { AddNewsComponent } from './add-news/add-news.component';
     MatTableModule,
     MatToolbarModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    FullCalendarModule,
+    NgxMaterialTimepickerModule 
   ],
   providers: [
     AuthorizationService,
@@ -156,7 +172,10 @@ import { AddNewsComponent } from './add-news/add-news.component';
     StudentService,
     SearchService,
     PaymentService,
-    SpinnerService
+    NewsService,
+    EventService,
+    SpinnerService,
+    DatePipe    
   ],
   bootstrap: [AppComponent],
   schemas: [

@@ -1,0 +1,60 @@
+<div class="main-div">
+    <md-card style="max-width: 500px; ">
+        <md-card-header>
+            <md-card-header-text>
+                <h2 class="md-title" style="text-align: center">ADD EVENT</h2>
+            </md-card-header-text>
+        </md-card-header>
+        <form [formGroup]="eventForm" autocomplete="off" novalidate (ngSubmit)="createEvent(eventForm.value)"
+            fxLayout="column wrap" fxLayoutAlign="center center">
+            <md-card-content>
+                <mat-form-field class="full-width">
+                    <mat-label>Group</mat-label>
+                    <mat-select formControlName="groupId">
+                        <mat-option *ngFor="let group of groups" [value]="group.GroupId">
+                            {{ group.GroupName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput [matDatepicker]="eventDate" formControlName="eventDate" placeholder="Event Date">
+                    <mat-datepicker-toggle matSuffix [for]="eventDate"></mat-datepicker-toggle>
+                    <mat-datepicker #eventDate></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" id="time-input">
+                    <input matInput [ngxTimepicker]="toggleTimepicker" formControlName="eventTime" [format]="24" [disableClick]="true" readonly readonly>
+                    <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
+                    <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput type="number" formControlName="duration" placeholder="Duration">
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput type="text" formControlName="addInfo" placeholder="Notes">
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Frequency</mat-label>
+                    <mat-select formControlName="frequency">
+                        <mat-option *ngFor="let frequency of frequencies" [value]="frequency.FrequencyId">
+                            {{ frequency.Description }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="isDueDateEnable()" class="full-width">
+                    <input matInput [matDatepicker]="picker" formControlName="dueDate" placeholder="Due Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </md-card-content>
+            <mat-card-actions class="display-center" style="padding: 10px 0;">
+                <button mat-raised-button [disabled]="!eventForm.valid || !eventForm.dirty">Submit</button>
+            </mat-card-actions>
+        </form>
+    </md-card>
+</div>

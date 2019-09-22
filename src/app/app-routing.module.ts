@@ -8,6 +8,7 @@ import { SchoolComponent } from './school/school.component';
 import { StudentComponent } from './student/student.component';
 import { AddNewsComponent } from './add-news/add-news.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
+import { SchoolScheduleComponent } from './school-schedule/school-schedule.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'group/:id', component: GroupComponent },
   { path: 'schools', component: SchoolsComponent },
   { path: 'school/:id', component: SchoolComponent },
+  { path: 'school/:id/schedule', component: SchoolScheduleComponent },
   { path: 'student/:id', component: StudentComponent },
 ];
 

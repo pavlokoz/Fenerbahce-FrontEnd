@@ -1,34 +1,35 @@
 import { Role } from './models/role';
 import { SalaryType } from './models/salary-type';
 import { PaymentType } from './models/payment-type';
+import { EventFrequency } from './models/event-frequency';
 
 export class Constants {
-    static CurrentBackEndHost: string = 'http://6547360.online-server.cloud/FenerbahceBackEnd/';
+    static CurrentBackEndHost: string = 'http://localhost:56833/';
     
     //Constants for AuthorizationService
-    static AuthorizationServiceConstants = class {
+    static readonly AuthorizationServiceConstants = class {
 
-        static UrlForAuthorization: string = Constants.CurrentBackEndHost + 'Token';
+        static readonly UrlForAuthorization: string = Constants.CurrentBackEndHost + 'Token';
 
-        static UrlForRegistration: string = Constants.CurrentBackEndHost + 'api/Account/RegisterOfUser';
+        static readonly UrlForRegistration: string = Constants.CurrentBackEndHost + 'api/Account/RegisterOfUser';
     }
 
     //Constants for data validation
-    static DataValidationConstants = class {
+    static readonly DataValidationConstants = class {
 
-        static NamePattern: string = "^[а-яА-ЯёЁa-zA-Zʼ'ї Ї і І є Є-]{2,40}$";
+        static readonly NamePattern: string = "^[а-яА-ЯёЁa-zA-Zʼ'ї Ї і І є Є-]{2,40}$";
 
-        static PasswordPattern: string = '((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{8,20})';
+        static readonly PasswordPattern: string = '((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{8,20})';
 
-        static EmailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$';
+        static readonly EmailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$';
         
-        static MaxCountOfStudents: string;
+        static readonly MaxCountOfStudents: string;
         
-        static pricePattern: string;
+        static readonly pricePattern: string;
     }    
 
-    static InstuctorConstants = class {
-        static SalaryTypes: SalaryType[] = [
+    static readonly InstuctorConstants = class {
+        static readonly SalaryTypes: SalaryType[] = [
             {
                 TypeCode: 'M',
                 TypeDescription: 'Monthly'
@@ -40,8 +41,8 @@ export class Constants {
          ];
     }
 
-    static PaymentConstants = class {
-        static PaymentTypes: PaymentType[] = [
+    static readonly PaymentConstants = class {
+        static readonly PaymentTypes: PaymentType[] = [
             {
                 TypeCode: 'M',
                 TypeDescription: 'Monthly payments'
@@ -57,8 +58,25 @@ export class Constants {
          ];
     }
 
-    static RegistrationConstants = class {
-        static UserRoles: Role[] = [
+    static readonly EventConstants = class {
+        static readonly EventFrequencies: EventFrequency[] = [
+            {
+                FrequencyId: 0,
+                Description: 'None'
+            },
+            {
+                FrequencyId: 1,
+                Description: 'Weekly'
+            },
+            {
+                FrequencyId: 2,
+                Description: 'Monthly'
+            }
+         ];
+    }
+
+    static readonly RegistrationConstants = class {
+        static readonly UserRoles: Role[] = [
             {
                 RoleId: 1,
                 RoleDescription: 'Director' 
@@ -77,13 +95,8 @@ export class Constants {
             }
 
          ];
-         static GrantType: string = 'grant_type=password';
-         static Email: string = 'Email=';
-         static Password: string = 'Password=';
-         static ConfirmPassword: string = 'ConfirmPassword=';
-         static FirstName: string = 'FirstName=';         
-         static LastName: string = 'LastName=';
-         static Role: string = 'Role=';
-         static DateOfBirth: string = 'DateOfBirth=';
+         static readonly GrantType: string = 'grant_type=password';
+         static readonly Email: string = 'Email=';
+         static readonly Password: string = 'Password=';
     }
 }

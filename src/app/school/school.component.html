@@ -8,6 +8,11 @@
     <div class="title" *ngIf="IsAdmin()">
         <button mat-raised-button (click)="editSchool()" style="margin-right: 10px;">Edit</button>
         <button mat-raised-button (click)="deleteSchool()">Delete</button>
+        <button mat-raised-button>
+            <a routerLink="schedule">
+                Schedule
+            </a>
+        </button>
     </div>
     <table mat-table [dataSource]="school.Groups" class="mat-elevation-z8">
         <ng-container matColumnDef="GroupName">
