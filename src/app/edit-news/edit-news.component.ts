@@ -33,7 +33,7 @@ export class EditNewsComponent implements OnInit {
 
   create(newsForm) {
     let news: News = {
-      NewsId: 0,
+      NewsId: this.data.News.NewsId,
       Title: newsForm.newsTitle,
       Info: newsForm.newsText,
       CreateDate: null
@@ -41,7 +41,7 @@ export class EditNewsComponent implements OnInit {
     this.spinnerService.ShowSpinner('LoadingProcess');
     this.newsService.updateNews(news).subscribe(res => {
       if (this.formData){
-        this.newsService.addNewsImage(res, this.formData).subscribe(res => {
+        this.newsService.addNewsImage(news.NewsId, this.formData).subscribe(res => {
           this.spinnerService.HideSpinner('LoadingProcess');
           this.snackBar.open("News updated!", "Got it", {
             duration: 2000
