@@ -63,6 +63,9 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { NewsService } from './services/news.service';
 import { EventService } from './services/event.service';
 import { EditEventComponent } from './edit-event/edit-event.component';
+import { GroupScheduleComponent } from './group-schedule/group-schedule.component';
+import { Subject } from 'rxjs';
+import { GlobalService } from './services/global.service';
 
 @NgModule({
   declarations: [
@@ -94,7 +97,8 @@ import { EditEventComponent } from './edit-event/edit-event.component';
     AddNewsComponent,
     SchoolScheduleComponent,
     AddEventComponent,
-    EditEventComponent
+    EditEventComponent,
+    GroupScheduleComponent
   ],
   entryComponents: [
     AddEventComponent,
@@ -161,9 +165,10 @@ import { EditEventComponent } from './edit-event/edit-event.component';
     MatTabsModule,
     MatDialogModule,
     FullCalendarModule,
-    NgxMaterialTimepickerModule 
+    NgxMaterialTimepickerModule
   ],
   providers: [
+    GlobalService,
     AuthorizationService,
     GroupService,
     SportService,
@@ -175,7 +180,7 @@ import { EditEventComponent } from './edit-event/edit-event.component';
     NewsService,
     EventService,
     SpinnerService,
-    DatePipe    
+    DatePipe,
   ],
   bootstrap: [AppComponent],
   schemas: [

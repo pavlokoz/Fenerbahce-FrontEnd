@@ -5,6 +5,7 @@ import { Login } from '../models/login';
 import { AuthorizationService } from '../services/authorization.service';
 import { MatSnackBar, MatSnackBarModule  } from '@angular/material'; 
 import { SpinnerService } from '../services/spinner.service';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public authService: AuthorizationService,
     private spinnerService: SpinnerService,
+    private globalService: GlobalService,
     public snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.spinnerService.ShowSpinner('LoadingProcess');
     this.authService.login(user).subscribe(res => {
       this.spinnerService.HideSpinner('LoadingProcess');
-      this.authService.setAuthData(res);
+      this.globalService.setToken(res);
       this.loginEvent.emit(null);
       this.snackBar.open("You are log in!", "Got it", {
         duration: 2000

@@ -25,10 +25,12 @@ export class AddEventComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: any) { }
 
   ngOnInit() {
-    this.isGroupSectionEnabled = (this.data && this.data.GroupId != 0);    
-    this.data.loadGroups((response: Group[]) => {
-      this.groups = response;
-    });
+    this.isGroupSectionEnabled = (this.data && this.data.GroupId === 0);    
+    if (this.data.loadGroups) {
+      this.data.loadGroups((response: Group[]) => {
+        this.groups = response;
+      });
+    }
     this.initFormGroup();   
     var el = document.querySelector('#time-input .mat-form-field-infix');
     el.style.display = 'flex';     

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorizationService } from '../services/authorization.service';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-main',
@@ -9,15 +10,16 @@ import { AuthorizationService } from '../services/authorization.service';
 export class MainComponent implements OnInit {
 
   isUserLogin: boolean;
-  
+
   constructor(
-    private authService: AuthorizationService
+    private globalService: GlobalService
   ) { }
 
   ngOnInit() {
-    setInterval(() => {    
-      this.isUserLogin = this.authService.isLoginUser();
-    }, 500);  
+    this.isUserLogin = this.globalService.isLoginUser();
+    this.globalService.storageItem.subscribe(res => {
+      this.isUserLogin = this.globalService.isLoginUser();
+    });
   }
 
   loginCallback() {

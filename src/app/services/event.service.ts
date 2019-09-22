@@ -35,7 +35,6 @@ export class EventService {
         set('monthId', monthId.toString()).
         set('year', year.toString());
 
-
     return this._http.get<CalendarEvent[]>(this.urlForGetSchoolEvents, { headers: headers, params: params }).pipe(
       catchError(res => {
         this.snackBar.open("An Error Occured! Please, try again", "Got it", {
@@ -46,14 +45,15 @@ export class EventService {
     );
   }
 
-  getGroupEvents(groupId: number): Observable<CalendarEvent[]> {
+  getGroupEvents(groupId: number, monthId: number, year: number): Observable<CalendarEvent[]> {
     let tokenData = 'Bearer ' + this.authService.getToken(),
       headers = new HttpHeaders().
         set('Content-Type', 'application/json').
         set('Authorization', tokenData),
       params = new HttpParams().
-        set('groupId', groupId.toString());
-
+        set('groupId', groupId.toString()).
+        set('monthId', monthId.toString()).
+        set('year', year.toString());
 
     return this._http.get<CalendarEvent[]>(this.urlForGetGroupEvents, { headers: headers, params: params }).pipe(
       catchError(res => {

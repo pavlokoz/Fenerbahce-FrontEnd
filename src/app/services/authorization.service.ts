@@ -6,15 +6,16 @@ import { User } from '../models/user';
 import { Login } from '../models/login';
 import { Constants } from '../constants';
 import { MatSnackBar } from '@angular/material';
+import { GlobalService } from './global.service';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthorizationService {
-
     private urlForRegisterUser: string = Constants.AuthorizationServiceConstants.UrlForRegistration;
     private urlForLogin: string = Constants.AuthorizationServiceConstants.UrlForAuthorization;
+    private token: any;
 
     constructor(private _http: HttpClient,
         private snackBar: MatSnackBar) {
@@ -54,10 +55,6 @@ export class AuthorizationService {
         );
     }
 
-    setAuthData(tokenData: any) {
-        localStorage.setItem("user", btoa(JSON.stringify(tokenData)));
-    }
-
     getToken(): string {
         if (localStorage.getItem("user")) {
             let user = JSON.parse(atob(localStorage.getItem("user")));
@@ -67,10 +64,6 @@ export class AuthorizationService {
         }
     }
 
-    isLoginUser(): boolean {
-        return this.getToken() !== null;
-    }
-
     isAdmin(): boolean {
         if (localStorage.getItem("user")) {
             let user = JSON.parse(atob(localStorage.getItem("user")));
@@ -78,10 +71,6 @@ export class AuthorizationService {
         } else {
             return false;
         }
-    }
-
-    logout(): void {
-        localStorage.removeItem("user");
     }
 
     private handleError(error: HttpErrorResponse) {

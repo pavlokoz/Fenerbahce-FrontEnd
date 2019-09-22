@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { RegisterUserComponent } from '../register-user/register-user.component';
 import { AuthorizationService } from '../services/authorization.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,12 +16,14 @@ export class SidebarComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
     private authService: AuthorizationService,
+    private globalService: GlobalService,
     private router: Router) { }
 
   ngOnInit() {
-    setInterval(()=>{    
-      this.isUserLogin = this.authService.isLoginUser();
-    }, 500);  
+    this.isUserLogin = this.globalService.isLoginUser();
+    this.globalService.storageItem.subscribe(res => {
+      this.isUserLogin = this.globalService.isLoginUser();
+    });
   }
 
   IsAdmin() {
@@ -38,7 +41,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logOut(): void {
-    this.authService.logout();
+    this.globalService.removeToken();
     this.router.navigate(['/']);
   }
 }

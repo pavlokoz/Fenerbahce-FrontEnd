@@ -1,0 +1,19 @@
+<div style="margin:0 300px; display: flex; justify-content: center;">
+        <full-calendar #calendar 
+            style="width: 100%; margin-top: 10px" 
+            defaultView="dayGridMonth" 
+            eventLimit="true" 
+            eventLimitText="more"
+            [events]="events" 
+            [showNonCurrentDates]="false" 
+            [eventStartEditable] = "true" 
+            [plugins]="calendarPlugins" 
+            (datesRender)="handleDateChange()" 
+            (eventClick) ="handleEventClick($event)"         
+            (eventDrop)="eventDrop($event)"
+            >
+        </full-calendar>
+    </div>
+    <div style="text-align: right; margin: 25px 300px 10px 0;">
+        <button mat-raised-button (click)="createEvent()">Add</button>
+    </div>

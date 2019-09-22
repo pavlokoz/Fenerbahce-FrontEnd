@@ -8,7 +8,7 @@
         <form [formGroup]="eventForm" autocomplete="off" novalidate (ngSubmit)="createEvent(eventForm.value)"
             fxLayout="column wrap" fxLayoutAlign="center center">
             <md-card-content>
-                <mat-form-field class="full-width">
+                <mat-form-field *ngIf="isGroupSectionEnabledx" class="full-width">
                     <mat-label>Group</mat-label>
                     <mat-select formControlName="groupId">
                         <mat-option *ngFor="let group of groups" [value]="group.GroupId">
