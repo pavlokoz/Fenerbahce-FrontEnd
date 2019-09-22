@@ -6,7 +6,7 @@ export class GlobalService {
   storageItem = new Subject();
 
   setToken(tokenData: any): void {
-    localStorage.setItem("user", btoa(JSON.stringify(tokenData)));
+      localStorage.setItem("user", btoa(JSON.stringify(tokenData)));
     this.storageItem.next(tokenData);
   }
 
