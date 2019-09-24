@@ -8,6 +8,8 @@ import { SchoolComponent } from './school/school.component';
 import { StudentComponent } from './student/student.component';
 import { AddNewsComponent } from './add-news/add-news.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
+import { SchoolScheduleComponent } from './school-schedule/school-schedule.component';
+import { GroupScheduleComponent } from './group-schedule/group-schedule.component';
 import { EditNewsComponent } from './edit-news/edit-news.component';
 import { UsersComponent } from './users/users.component';
 
@@ -18,8 +20,10 @@ const routes: Routes = [
   { path: 'addnews', component: AddNewsComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'group/:id', component: GroupComponent },
+  { path: 'group/:id/schedule', component: GroupScheduleComponent },
   { path: 'schools', component: SchoolsComponent },
   { path: 'school/:id', component: SchoolComponent },
+  { path: 'school/:id/schedule', component: SchoolScheduleComponent },
   { path: 'student/:id', component: StudentComponent },
   { path: 'users', component: UsersComponent },
 ];

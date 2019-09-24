@@ -61,43 +61,48 @@ export class GroupComponent implements OnInit {
       this.loadData();
     });
   }
-    deleteGroup(): void {
-      this.groupService.deleteGroup(this.group.GroupId).subscribe(response => {
-        this.router.navigate(['/groups']);
-      });
-    };
 
-    deleteInstructor(instructorId: number, groupId: number): void {
-      this.instructorService.deleteInstructor(instructorId, groupId).subscribe(response => {
-        this.loadData();
-      });  
-    };
+  deleteGroup(): void {
+    this.groupService.deleteGroup(this.group.GroupId).subscribe(response => {
+      this.router.navigate(['/groups']);
+    });
+  };
 
-    ModalInstructor(): void {
-      const dialogRef = this.dialog.open(AddInstructorComponent, {
-        width: '540px',
-        height: '450px',
-        data: {
-          GroupId: this.group.GroupId
-        }
-      });
-      dialogRef.afterClosed().subscribe(res => {
-        this.loadData();
-      });
-    }
+  openSchedule(): void {
+    this.router.navigate(['./schedule'], { relativeTo: this.route });
+  }
 
-    editInstructor(groupInstructor: GroupInstructor): void {
-      const dialogRef = this.dialog.open(EditInstructorComponent, {
-        width: '540px',
-        height: '450px',
-        data: {
-          GroupInstructor: groupInstructor
-        }
-      }); 
-      dialogRef.afterClosed().subscribe(res => {
-        this.loadData();
-      });
-    }
+  deleteInstructor(instructorId: number, groupId: number): void {
+    this.instructorService.deleteInstructor(instructorId, groupId).subscribe(response => {
+      this.loadData();
+    });
+  };
+
+  ModalInstructor(): void {
+    const dialogRef = this.dialog.open(AddInstructorComponent, {
+      width: '540px',
+      height: '450px',
+      data: {
+        GroupId: this.group.GroupId
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.loadData();
+    });
+  }
+
+  editInstructor(groupInstructor: GroupInstructor): void {
+    const dialogRef = this.dialog.open(EditInstructorComponent, {
+      width: '540px',
+      height: '450px',
+      data: {
+        GroupInstructor: groupInstructor
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.loadData();
+    });
+  }
 
   editGroup(): void {
     const dialogRef = this.dialog.open(EditGroupComponent, {

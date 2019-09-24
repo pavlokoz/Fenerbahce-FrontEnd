@@ -1,8 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Subject } from 'rxjs';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -56,6 +58,14 @@ import { EditPaymentComponent } from './edit-payment/edit-payment.component';
 import { NewsComponent } from './news/news.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { AddNewsComponent } from './add-news/add-news.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { SchoolScheduleComponent } from './school-schedule/school-schedule.component';
+import { AddEventComponent } from './add-event/add-event.component';
+import { NewsService } from './services/news.service';
+import { EventService } from './services/event.service';
+import { EditEventComponent } from './edit-event/edit-event.component';
+import { GroupScheduleComponent } from './group-schedule/group-schedule.component';
+import { GlobalService } from './services/global.service';
 import { EditNewsComponent } from './edit-news/edit-news.component';
 import { ParentService } from './services/parent.service';
 import { UsersComponent } from './users/users.component';
@@ -89,10 +99,15 @@ import { UserService } from './services/user.service';
     NewsComponent,
     NewsDetailComponent,
     AddNewsComponent,
+    SchoolScheduleComponent,
+    AddEventComponent,
+    EditEventComponent,
+    GroupScheduleComponent,
     EditNewsComponent,
     UsersComponent,
   ],
   entryComponents: [
+    AddEventComponent,
     AddGroupComponent, 
     AddStudentComponent, 
     AddSchoolComponent, 
@@ -106,6 +121,7 @@ import { UserService } from './services/user.service';
     EditGroupComponent,
     EditSchoolComponent,
     EditPaymentComponent,
+    EditEventComponent,
     EditNewsComponent,
   ],
   imports: [
@@ -128,7 +144,9 @@ import { UserService } from './services/user.service';
     MatTableModule,
     MatToolbarModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    FullCalendarModule,
+    NgxMaterialTimepickerModule
   ],
   exports: [
     AddStudentComponent,
@@ -152,9 +170,12 @@ import { UserService } from './services/user.service';
     MatTableModule,
     MatToolbarModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    FullCalendarModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [
+    GlobalService,
     AuthorizationService,
     GroupService,
     SportService,
@@ -164,6 +185,10 @@ import { UserService } from './services/user.service';
     StudentService,
     SearchService,
     PaymentService,
+    NewsService,
+    EventService,
+    SpinnerService,
+    DatePipe,
     SpinnerService,
     UserService
   ],

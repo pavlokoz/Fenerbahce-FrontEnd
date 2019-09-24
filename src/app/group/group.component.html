@@ -6,7 +6,8 @@
     </div>
     <div class="title" *ngIf="IsAdmin()">
         <button mat-raised-button (click)="editGroup()" style="margin-right: 10px;">Edit</button>
-        <button mat-raised-button (click)="deleteGroup()">Delete</button>
+        <button mat-raised-button (click)="deleteGroup()" style="margin-right: 10px;">Delete</button>
+        <button mat-raised-button (click)="openSchedule()">Schedule</button>
     </div>
     <mat-tab-group dynamicHeight>
         <mat-tab label="Students">

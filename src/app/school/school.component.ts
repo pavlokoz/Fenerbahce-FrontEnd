@@ -3,7 +3,7 @@ import { School } from '../models/school';
 import { SchoolService } from '../services/school.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorizationService } from '../services/authorization.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditSchoolComponent } from '../edit-school/edit-school.component';
 import { SpinnerService } from '../services/spinner.service';
 
@@ -50,7 +50,11 @@ export class SchoolComponent implements OnInit {
       this.spinnerService.HideSpinner('LoadingProcess');
       this.router.navigate(['/schools']);
     });
-  };  
+  };
+
+  openSchedule(): void {
+    this.router.navigate(['./schedule'], { relativeTo: this.route });
+  }
 
   private loadData() {
     this.spinnerService.ShowSpinner('LoadingProcess');
@@ -73,10 +77,10 @@ export class SchoolComponent implements OnInit {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
       this.schoolLogo = reader.result;
-    }); 
+    });
 
     if (image && image.size > 0) {
-       reader.readAsDataURL(image);
+      reader.readAsDataURL(image);
     }
-  }  
+  }
 }
