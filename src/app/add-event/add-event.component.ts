@@ -33,7 +33,7 @@ export class AddEventComponent implements OnInit {
     }
     this.initFormGroup();   
     var el = document.querySelector('#time-input .mat-form-field-infix');
-    el.style.display = 'flex';     
+    el['style'].display = 'flex';     
   }
 
   createEvent(eventForm): void {
