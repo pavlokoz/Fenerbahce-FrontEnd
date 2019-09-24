@@ -117,7 +117,7 @@ export class NewsService {
         set('Authorization', tokenData),
       content = news;
 
-    return this._http.put(this.urlForUpdateNews, content, { headers: headers }).pipe(
+    return this._http.put<number>(this.urlForUpdateNews, content, { headers: headers }).pipe(
       catchError(res => {
         this.snackBar.open("An Error Occured! Please, try again", "Got it", {
           duration: 2000

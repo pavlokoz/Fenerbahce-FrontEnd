@@ -6,7 +6,12 @@ ul {
 
 li {
     margin: 15px 0;
-    cursor: pointer;
+    cursor: pointer; 
+}
+
+a {
+    display: inline-block; 
+    position: relative; 
 }
 
 .sidebar {
