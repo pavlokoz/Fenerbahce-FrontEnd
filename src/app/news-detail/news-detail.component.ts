@@ -8,6 +8,7 @@ import { EditSchoolComponent } from '../edit-school/edit-school.component';
 import { SpinnerService } from '../services/spinner.service';
 import { News } from '../models/news';
 import { NewsService } from '../services/news.service';
+import { EditNewsComponent } from '../edit-news/edit-news.component';
 
 @Component({
   selector: 'app-news-detail',
@@ -42,6 +43,29 @@ export class NewsDetailComponent implements OnInit {
       this.spinnerService.HideSpinner('LoadingProcess');
     });
   }
+
+  editNews(): void {
+    const dialogRef = this.dialog.open(EditNewsComponent, {
+      width: '1080px',
+      height: '540px',
+      data: {
+        News: this.news,
+        Image: this.newsImage
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      this.loadData();
+    });
+  }
+
+  deleteNews(): void {
+    this.spinnerService.ShowSpinner('LoadingProcess');
+    this.newsService.deleteNews(this.news.NewsId).subscribe(response => {
+      this.spinnerService.HideSpinner('LoadingProcess');
+      this.router.navigate(['']);
+    });
+  };  
 
   IsAdmin() {
     return this.authService.isAdmin();

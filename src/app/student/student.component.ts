@@ -14,6 +14,7 @@ import { Payment } from '../models/payment';
 import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
 import { PaymentService } from '../services/payment.service';
 import { MatSnackBar } from '@angular/material';
+import { ParentService } from '../services/parent.service';
 
 @Component({
   selector: 'app-student',
@@ -24,11 +25,12 @@ export class StudentComponent implements OnInit {
 
   student: Student;
   paymentTypes = Constants.PaymentConstants.PaymentTypes;
-  displayedParentColumns = ['FirstName', 'LastName'];
+  displayedParentColumns = ['FirstName', 'LastName', 'Delete'];
   displayedPaymentColumns = ['Amount', 'Type', 'Update', 'Delete'];
 
   constructor(private studentService: StudentService,
     private authService: AuthorizationService,
+    private parentService: ParentService,
     private paymentService: PaymentService,
     private spinnerService: SpinnerService,
     private snackBar: MatSnackBar,
@@ -57,6 +59,12 @@ export class StudentComponent implements OnInit {
       this.loadData();
     });    
   }
+
+  deleteParent(parentId: number, studentId: number): void {
+    this.parentService.deleteParent(parentId, studentId).subscribe(response => {
+      this.loadData();
+    });  
+  };
 
   deleteStudent(): void {
     this.studentService.deleteStudent(this.student.StudentId).subscribe(response => {

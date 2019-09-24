@@ -10,10 +10,13 @@ import { AddNewsComponent } from './add-news/add-news.component';
 import { NewsDetailComponent } from './news-detail/news-detail.component';
 import { SchoolScheduleComponent } from './school-schedule/school-schedule.component';
 import { GroupScheduleComponent } from './group-schedule/group-schedule.component';
+import { EditNewsComponent } from './edit-news/edit-news.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'news/:id', component: NewsDetailComponent },
+  { path: 'editnews', component: EditNewsComponent },
   { path: 'addnews', component: AddNewsComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'group/:id', component: GroupComponent },
@@ -22,6 +25,7 @@ const routes: Routes = [
   { path: 'school/:id', component: SchoolComponent },
   { path: 'school/:id/schedule', component: SchoolScheduleComponent },
   { path: 'student/:id', component: StudentComponent },
+  { path: 'users', component: UsersComponent },
 ];
 
 @NgModule({

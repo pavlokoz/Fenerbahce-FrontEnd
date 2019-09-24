@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Subject } from 'rxjs';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -64,8 +65,11 @@ import { NewsService } from './services/news.service';
 import { EventService } from './services/event.service';
 import { EditEventComponent } from './edit-event/edit-event.component';
 import { GroupScheduleComponent } from './group-schedule/group-schedule.component';
-import { Subject } from 'rxjs';
 import { GlobalService } from './services/global.service';
+import { EditNewsComponent } from './edit-news/edit-news.component';
+import { ParentService } from './services/parent.service';
+import { UsersComponent } from './users/users.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -98,7 +102,9 @@ import { GlobalService } from './services/global.service';
     SchoolScheduleComponent,
     AddEventComponent,
     EditEventComponent,
-    GroupScheduleComponent
+    GroupScheduleComponent,
+    EditNewsComponent,
+    UsersComponent,
   ],
   entryComponents: [
     AddEventComponent,
@@ -115,7 +121,8 @@ import { GlobalService } from './services/global.service';
     EditGroupComponent,
     EditSchoolComponent,
     EditPaymentComponent,
-    EditEventComponent
+    EditEventComponent,
+    EditNewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -174,6 +181,7 @@ import { GlobalService } from './services/global.service';
     SportService,
     SchoolService,
     InstructorService,
+    ParentService,
     StudentService,
     SearchService,
     PaymentService,
@@ -181,6 +189,8 @@ import { GlobalService } from './services/global.service';
     EventService,
     SpinnerService,
     DatePipe,
+    SpinnerService,
+    UserService
   ],
   bootstrap: [AppComponent],
   schemas: [
