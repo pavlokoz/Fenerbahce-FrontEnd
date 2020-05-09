@@ -1,23 +1,42 @@
-<div class="title">
-    <h2>News</h2>
-</div>
-<div style="text-align: right; margin-right: 10%;" *ngIf="IsAdmin()">
-    <button style="text-align: right" mat-raised-button routerLink="addnews">
-        <a routerLink="addnews">
+<mat-toolbar style="background-color: white; font-weight: bold; font-size:xx-large;">
+    <mat-toolbar-row>
+        <span style="margin: auto;">Fenerbahce News</span>
+        <button *ngIf="IsAdmin()" style="text-align: right; margin-right: 100px;" mat-raised-button routerLink="addnews"
+            routerLink="addnews">
+            <mat-icon _ngcontent-c1="" class="mat-icon material-icons" role="img" aria-hidden="true">
+                add
+            </mat-icon>
             Add News
-        </a>
-    </button>
-</div>
-<div  class="title" *ngFor="let item of news">
-    <section class="col-xs-12">
-        <div class="row">
-            <h3>
-                <a routerLink="/news/{{item.NewsId}}">{{item.Title}}</a>
-            </h3>
-        </div>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
 
-        <article class="text">
-            {{item.Info}}
-        </article>
-    </section>
+<div *ngFor="let item of news">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title class="title">{{item.Title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <article class="text">
+                {{item.Info}}
+            </article>
+            <mat-card-subtitle class="subtitle"> Created: {{item.CreateDate | date:'d MMMM yyyy'}}</mat-card-subtitle>
+        </mat-card-content>
+        <br>
+        <mat-card-actions class="action-buttons">
+            <button mat-button routerLink="/news/{{item.NewsId}}">
+                <mat-icon _ngcontent-c1="" class="mat-icon material-icons" role="img" aria-hidden="true">
+                    visibility
+                </mat-icon>
+                More
+            </button>
+            <button *ngIf="IsAdmin()" mat-button (click)="deleteNews(item.NewsId)">
+                <mat-icon _ngcontent-c1="" class="mat-icon material-icons" role="img" aria-hidden="true">
+                    delete
+                </mat-icon>
+                Delete
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </div>

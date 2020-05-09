@@ -18,4 +18,5 @@ a {
     width: 50px;
     background: yellow;
     height: 100vh;
+    position: fixed;
 }

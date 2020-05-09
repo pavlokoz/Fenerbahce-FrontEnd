@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { School } from '../models/school';
-import { SchoolService } from '../services/school.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AddSchoolComponent } from '../add-school/add-school.component';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthorizationService } from '../services/authorization.service';
 import { SpinnerService } from '../services/spinner.service';
 import { News } from '../models/news';
@@ -20,23 +17,30 @@ export class NewsComponent implements OnInit {
     private newsService: NewsService,
     private authService: AuthorizationService,
     private spinnerService: SpinnerService,
-    public dialog: MatDialog
-    ) { }
+    public dialog: MatDialog) { }
 
-    ngOnInit() {
-      this.loadData();
-    }
+  ngOnInit() {
+    this.loadData();
+  }
 
-    IsAdmin() {
-      return this.authService.isAdmin();
-    } 
+  IsAdmin() {
+    return this.authService.isAdmin();
+  }
 
-    private loadData() {
-      this.spinnerService.ShowSpinner('LoadingProcess');
-      this.newsService.getNews().subscribe(response => {
-        this.news = response;
-        this.spinnerService.HideSpinner('LoadingProcess');
-      });
-    }
+  public deleteNews(id: number): void {
+    this.spinnerService.ShowSpinner('LoadingProcess');
+    this.newsService.deleteNews(id).subscribe(response => {
+      this.spinnerService.HideSpinner('LoadingProcess');
+      this.loadData()
+    });
+  };
+
+  private loadData() {
+    this.spinnerService.ShowSpinner('LoadingProcess');
+    this.newsService.getNews().subscribe(response => {
+      this.news = response;
+      this.spinnerService.HideSpinner('LoadingProcess');
+    });
+  }
 
 }
