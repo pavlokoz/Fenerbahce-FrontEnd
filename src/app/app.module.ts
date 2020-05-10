@@ -30,6 +30,7 @@ import {
   MatTabsModule,
   MatDialogModule,
   MatIconModule,
+  MatCardModule,
 }
   from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -148,7 +149,8 @@ import { UserService } from './services/user.service';
     MatDialogModule,
     FullCalendarModule,
     NgxMaterialTimepickerModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   exports: [
     AddStudentComponent,
@@ -175,7 +177,8 @@ import { UserService } from './services/user.service';
     MatDialogModule,
     FullCalendarModule,
     NgxMaterialTimepickerModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   providers: [
     GlobalService,

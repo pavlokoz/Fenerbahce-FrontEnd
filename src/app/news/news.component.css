@@ -6,16 +6,9 @@ table{
   }
   
   .title{
-    margin-left: 135px;
     margin-bottom: 30px;
     font-weight: bold;
     font-size: x-large;
-  }
-
-  .subtitle{
-    margin-left: 135px;
-    margin-bottom: 30px;
-    font-weight: bold;
   }
   
   h2 {
@@ -29,8 +22,7 @@ table{
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 100px;
-    margin-left: 135px;
+    line-height: 20px;
   }
 
   .example-spacer {
@@ -38,23 +30,21 @@ table{
   }
   
   .example-card{
-      margin-top: 4px;
+      margin-top: 5px;
       margin-left: 135px;
       margin-bottom: 30px;
+      width: 500px;
+      display: inline-block !important;
+      box-shadow: 0 2px 1px -1px rgba(0,0,0,1), 
+                0 1px 1px 0 rgba(0,0,0,1), 
+                0 1px 3px 0 rgba(0,0,0,1);
   }
-  
-  .example-header-image { 
-    background-size: cover;
-  }
-  
-  .img-article{
-      height: 350px;
-  }
+
   
   .action-buttons{
       text-align: center;
       margin-left: 135px;
-    margin-bottom: 30px;
+       margin-bottom: 30px;
   }
   
   .example-container {

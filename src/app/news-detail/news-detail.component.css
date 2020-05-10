@@ -1,7 +1,7 @@
 table{
 
     width: 80%;
-    margin: 0 auto;
+    margin:  auto;
     margin-bottom: 50px;
 }
 
@@ -17,4 +17,17 @@ h2 {
 img {
     max-width: 50%;
     height: auto;
+  }
+
+  .example-card {
+    margin-right: 100px;
+    margin-left: 135px;
+    text-align: center;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,1), 
+                0 1px 1px 0 rgba(0,0,0,1), 
+                0 1px 3px 0 rgba(0,0,0,1);
+  }
+  
+  .example-header-image {
+    background-size: cover;
   }
