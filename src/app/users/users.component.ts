@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { School } from '../models/school';
 import { MatDialog} from '@angular/material/dialog';
-import { AddSchoolComponent } from '../add-school/add-school.component';
 import { AuthorizationService } from '../services/authorization.service';
 import { SpinnerService } from '../services/spinner.service';
 import { UserService } from '../services/user.service';
