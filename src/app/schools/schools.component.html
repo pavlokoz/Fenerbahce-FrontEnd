@@ -1,7 +1,10 @@
+<mat-toolbar style="background-color: white; font-weight: bold; font-size:xxx-large; margin-bottom: 15px;">
+    <mat-toolbar-row>
+        <span style="margin: auto;">Users</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
 <div *ngIf="schools.length > 0">
-    <div class="title">
-        <h2>Schools</h2>
-    </div>
     <table mat-table [dataSource]="schools" class="mat-elevation-z8">
         <ng-container matColumnDef="SchoolName">
             <th mat-header-cell *matHeaderCellDef> Name </th>

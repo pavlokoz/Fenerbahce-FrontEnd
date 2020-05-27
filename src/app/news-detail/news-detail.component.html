@@ -1,15 +1,20 @@
-<div *ngIf="news" style="margin: 0 100px;">
-    <div [ngClass]="{title:true}">
-        <h2>{{news.Title}}</h2>
+<br>
+<div *ngIf="news" >
+  <mat-card class="example-card">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <H2>
+        {{news.Title}}
+      </H2>
     </div>
-    <div style="text-align: right; margin-right: 10%;" *ngIf="IsAdmin()">
-        <button mat-raised-button (click)="editNews()" style="margin-right: 10px;">Edit</button>
-        <button mat-raised-button (click)="deleteNews()" style="margin-right: 10px;">Delete</button>
-    </div>
-    <div *ngIf="newsImage" style="display: flex;justify-content: center;">
-        <img [src]="newsImage">
-    </div>
-    <article>
+    <img mat-card-image [src]="newsImage" alt="">
+    <mat-card-content>
+      <p>
         {{news.Info}}
-    </article>
+      </p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="IsAdmin()">
+      <button mat-button (click)="editNews()" style="font-size: 18px;width: 100px;">EDIT</button>
+      <button mat-button (click)="deleteNews()" style="font-size: 18px;width: 100px;">DELETE</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

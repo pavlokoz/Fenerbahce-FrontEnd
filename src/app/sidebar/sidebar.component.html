@@ -2,44 +2,45 @@
     <ul>
         <li>
             <a routerLink="/" title="Home">
-                <i class="material-icons">
-                        home
-                </i>
+                <mat-icon style="color: black;">
+                    home
+                </mat-icon>
+                      
             </a>
         </li>
         <li *ngIf="IsAdmin()">
             <a (click)="openRegisterDialog()" title="Create User">
-                <i class="material-icons">
+                <mat-icon style="color: black;">
                     supervised_user_circle
-                </i>
+                </mat-icon>
             </a>
         </li>
         <li>
             <a routerLink="users" title="Users">
-                <i class="material-icons">
+                <mat-icon style="color: black;">
                     emoji_people
-                </i>
+                </mat-icon>
             </a>
         </li>
         <li>
-            <a routerLink="groups" title="Groups">
-                <i class="material-icons">
+            <a routerLink="groups" title="Groups"> 
+                <mat-icon style="color: black;">
                     supervisor_account
-                </i>
+                </mat-icon>
             </a>
         </li>       
         <li>
-            <a routerLink="schools" title="Schools">
-                <i class="material-icons">
+            <a routerLink="schools" title="Schools"> 
+                <mat-icon style="color: black;">
                     store
-                </i>
+                </mat-icon>
             </a>
         </li>
         <li>
             <a (click)="logOut()" title="LogOut">
-                <i class="material-icons">
+                <mat-icon style="color: black;">
                     power_settings_new
-                </i>
+                </mat-icon>
             </a>
         </li>
     </ul>
